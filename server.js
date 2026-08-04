@@ -160,7 +160,7 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   }
 
   // 5. Server-side validation of required fields (never trust the client).
-  const required = ["fullName", "email", "website"];
+  const required = ["firstName", "lastName", "email", "website"];
   for (const f of required) {
     if (!String(b[f] || "").trim()) {
       return res.status(400).json({ ok: false, error: "missing_fields" });
@@ -175,15 +175,10 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
     return res.status(500).json({ ok: false, error: "not_configured" });
   }
 
-  // 6. Build the HubSpot payload and forward. The form collects one full-name
-  //    field; HubSpot wants firstname/lastname, so split on the first space.
-  const fullName = String(b.fullName || "").trim();
-  const spaceAt = fullName.indexOf(" ");
-  const firstname = spaceAt === -1 ? fullName : fullName.slice(0, spaceAt);
-  const lastname = spaceAt === -1 ? "" : fullName.slice(spaceAt + 1).trim();
+  // 6. Build the HubSpot payload and forward.
   const allFields = [
-    { objectTypeId: "0-1", name: "firstname",      value: firstname },
-    { objectTypeId: "0-1", name: "lastname",       value: lastname },
+    { objectTypeId: "0-1", name: "firstname",      value: b.firstName },
+    { objectTypeId: "0-1", name: "lastname",       value: b.lastName },
     { objectTypeId: "0-1", name: "email",          value: b.email },
     { objectTypeId: "0-1", name: "website",        value: b.website },
     { objectTypeId: "0-1", name: PROP_TOP_MARKET,  value: b.markets },

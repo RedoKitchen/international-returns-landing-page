@@ -1,31 +1,31 @@
 # Redo International Returns — landing page
 
-Paid-traffic landing page for International Returns (marketing's IR-LP-V4 design), served behind the same bot-defense architecture as the [Shipping free-trial page](https://github.com/RedoMarketing/Shipping-Free-Trial-Landing-Page): server-proxied form, Cloudflare Turnstile, honeypot, per-IP rate limit, timing check, booking URL hidden until a verified submission.
+The Shipping free-trial landing page design ([Shipping-Free-Trial-Landing-Page](https://github.com/RedoMarketing/Shipping-Free-Trial-Landing-Page)) carrying International Returns content (sourced from marketing's IR-LP-V4 information doc). Same layout, same components, same bot defense: server-proxied form, Cloudflare Turnstile, honeypot, per-IP rate limit, timing check, booking URL hidden until a verified submission.
 
-## Files
+## Pages
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | The whole page (V4): rotating hero, pillar cards, pain cards, EU hub map, carrier grid, customs mock, localized-portal demo, savings calculator, demo form. Fully self-contained except Google Fonts + Turnstile. |
-| `server.js` | Express server. Serves the page under `/international-returns-free-trial/` and proxies `api/trial-signup` to HubSpot behind the defense stack. |
+| `index.html` | Landing page: hero, integrations, brand marquee, why-cards, feature carousel (the four IR pillars + exchanges + forward fulfillment), stats, demo form. |
+| `free-trial.html` | Dedicated demo-request page (side rail with the business case + form). |
+| `server.js` | Express server. Serves the site under `/international-returns-free-trial/` and proxies `api/trial-signup` to HubSpot behind the defense stack. |
 
-## The form
+## The form (demo request, not account signup)
 
-Fields: full name, business email, website URL, top international market, international orders range. Notes:
+Fields: first name, last name, business email, website URL, top international market (select), international orders last year (select). Notes:
 
 - **The honeypot is `fax`, not `website`** — `website` is a real, visible field on this form. Do not "fix" this back.
-- The server splits full name into HubSpot `firstname`/`lastname` on the first space.
-- On verified success the server returns `bookingUrl` and the page redirects to the demo calendar (family pattern). If `bookingUrl` were ever absent, the page falls back to the V4 inline thank-you state.
-- Successful submits push `{event: "ir_demo_request"}` to the GTM dataLayer.
+- On verified success the server returns `bookingUrl` and the page redirects to the demo calendar. Falls back to Mike's calendar until `BOOKING_URL` is set in Railway.
+- All CTAs carry `id="get-started"` (intentionally duplicated) for the GTM Click ID trigger.
 
-## Before launch ([CONFIRM] markers in the code)
+## Before launch ([CONFIRM] markers in server.js)
 
-1. **HubSpot property names**: `top_international_market` and `international_orders_last_year` in `server.js` are placeholders — match them to the internal property names on the HubSpot form marketing creates, or edit them there.
-2. The V4 design itself carries `[CONFIRM]` / `[WEBFLOW: LOGOS]` comments from marketing (rate-card figures, carrier logo permissions, broker list). Resolve those before paid traffic hits it.
+1. **HubSpot property names**: `top_international_market` and `international_orders_last_year` are placeholders — match them to the internal names on the HubSpot form marketing creates, or edit them in `server.js`.
+2. Content numbers to confirm with marketing (they came from the IR-LP-V4 doc, which flags its own rate-card figures as pre-final): ~70% lower cost per return, $49 vs $15, 3–4 day refunds, $30/order business case, 200+ countries, 4,000+ brands, 800+ reviews.
 
 ## Deploy (mirrors the shipping page)
 
-1. **Railway**: new service, `npm start`. Env vars: `HS_PORTAL`, `HS_FORM` (signups rejected until set), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET` (degraded mode without), `BOOKING_URL` (falls back to Mike's calendar).
+1. **Railway**: new service, `npm start`. Env vars: `HS_PORTAL`, `HS_FORM` (signups rejected until set), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET` (degraded mode without), `BOOKING_URL`.
 2. **Cloudflare**: proxy `redo.com/international-returns-free-trial/*` to the service, preserving the path prefix.
 
 ## Local dev

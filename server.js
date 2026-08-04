@@ -31,11 +31,11 @@ const HS_FORM            = process.env.HS_FORM            || "";
 const BOOKING_URL        = process.env.BOOKING_URL || "https://meetings.hubspot.com/michael-rose4/mikes-calendar-link";
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-// HubSpot property internal names + object types (mirrors the old client mapping):
-//   - orders_last_year lives on the Company object   (objectTypeId 0-2)
-//   - how_did_you_hear_about_us lives on the Contact (objectTypeId 0-1)
-const PROP_ORDER_VOLUME = "orders_last_year";
-const PROP_HDYHAU       = "how_did_you_hear_about_us";
+// HubSpot property internal names for the International Returns demo form.
+// [CONFIRM] the two custom properties below must match the internal names on the
+// HubSpot form marketing creates for this page — adjust here if they differ.
+const PROP_TOP_MARKET  = "top_international_market";
+const PROP_INTL_ORDERS = "international_orders_last_year";
 
 // Minimum seconds a real human needs to fill the form. Bots submit instantly.
 const MIN_FILL_MS = 3000;
@@ -133,8 +133,10 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   const ip = clientIp(req);
   const b = req.body || {};
 
-  // 1. Honeypot: hidden field a human never fills. Silent 200 so bots learn nothing.
-  if (b.website) return res.status(200).json({ ok: true });
+  // 1. Honeypot: hidden "fax" field a human never fills. ("website" is a REAL,
+  //    visible field on this form — do NOT treat it as the honeypot.)
+  //    Silent 200 so bots learn nothing.
+  if (b.fax) return res.status(200).json({ ok: true });
 
   // 2. Time trap: submitted implausibly fast after page load.
   const elapsed = Number(b.elapsedMs);
@@ -158,7 +160,7 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   }
 
   // 5. Server-side validation of required fields (never trust the client).
-  const required = ["firstName", "lastName", "company", "email", "annualOrderVolume"];
+  const required = ["fullName", "email", "website"];
   for (const f of required) {
     if (!String(b[f] || "").trim()) {
       return res.status(400).json({ ok: false, error: "missing_fields" });
@@ -173,18 +175,22 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
     return res.status(500).json({ ok: false, error: "not_configured" });
   }
 
-  // 6. Build the HubSpot payload and forward.
+  // 6. Build the HubSpot payload and forward. The form collects one full-name
+  //    field; HubSpot wants firstname/lastname, so split on the first space.
+  const fullName = String(b.fullName || "").trim();
+  const spaceAt = fullName.indexOf(" ");
+  const firstname = spaceAt === -1 ? fullName : fullName.slice(0, spaceAt);
+  const lastname = spaceAt === -1 ? "" : fullName.slice(spaceAt + 1).trim();
   const allFields = [
-    { objectTypeId: "0-1", name: "firstname",       value: b.firstName },
-    { objectTypeId: "0-1", name: "lastname",        value: b.lastName },
-    { objectTypeId: "0-1", name: "email",           value: b.email },
-    { objectTypeId: "0-1", name: "company",         value: b.company },
-    { objectTypeId: "0-1", name: "phone",           value: b.phone },
-    { objectTypeId: "0-2", name: PROP_ORDER_VOLUME, value: b.annualOrderVolume },
-    { objectTypeId: "0-1", name: PROP_HDYHAU,       value: b.hdyhau },
-    { objectTypeId: "0-1", name: "utm_source",      value: b.utm_source },
-    { objectTypeId: "0-1", name: "utm_medium",      value: b.utm_medium },
-    { objectTypeId: "0-1", name: "utm_campaign",    value: b.utm_campaign },
+    { objectTypeId: "0-1", name: "firstname",      value: firstname },
+    { objectTypeId: "0-1", name: "lastname",       value: lastname },
+    { objectTypeId: "0-1", name: "email",          value: b.email },
+    { objectTypeId: "0-1", name: "website",        value: b.website },
+    { objectTypeId: "0-1", name: PROP_TOP_MARKET,  value: b.markets },
+    { objectTypeId: "0-1", name: PROP_INTL_ORDERS, value: b.orders },
+    { objectTypeId: "0-1", name: "utm_source",     value: b.utm_source },
+    { objectTypeId: "0-1", name: "utm_medium",     value: b.utm_medium },
+    { objectTypeId: "0-1", name: "utm_campaign",   value: b.utm_campaign },
   ];
   const fields = allFields
     .map((f) => ({ ...f, value: String(f.value == null ? "" : f.value).trim() }))

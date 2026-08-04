@@ -1,0 +1,12 @@
+{
+  "name": "international-returns-free-trial-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Redo International Returns free-trial landing page — static site served under /international-returns-free-trial/",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

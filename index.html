@@ -1590,13 +1590,15 @@
         ordVal = document.getElementById('svOrdVal'), rrVal = document.getElementById('svRrVal'), num = document.getElementById('svNum');
     if (!orders) return;
     /* [CONFIRM] per-order savings assumptions live here */
-    var ORD_MAX = 1000000, ORD_MID = 10000, RET_SAVED = 34;
+    var ORD_MID = 10000, RET_SAVED = 34;
+    var ORD_STOPS = [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000];
+    var ORD_MAX = ORD_STOPS[ORD_STOPS.length - 1];
     function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
     function fill(el){ el.style.backgroundSize = ((el.value - el.min) / (el.max - el.min) * 100) + '% 100%'; }
     function ordersFromSlider(t){
       if (t <= 500) return Math.round(ORD_MID * (t / 500) / 500) * 500;
-      var o = ORD_MID * Math.pow(ORD_MAX / ORD_MID, (t - 500) / 500);
-      return Math.round(o / 1000) * 1000;
+      var i = Math.round((t - 500) / 500 * (ORD_STOPS.length - 1));
+      return ORD_STOPS[i];
     }
     var target = 0, shown = 0, raf = 0, ready = false;
     function set(v){ target = v; if (reduce || !ready) { shown = v; num.textContent = fmt(v); return; } if (!raf) raf = requestAnimationFrame(stepf); }

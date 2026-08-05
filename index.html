@@ -187,48 +187,40 @@
     margin-right: auto;
   }
 
-  /* ===== Pillar pills ===== */
-  .pillar-pills {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 10px;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 20px;
+  /* ===== Pillar pills: one bar, in flow, sticks under the header ===== */
+  .pillar-pills-wrap {
+    position: sticky; top: 64px; z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    margin-top: 44px;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s;
   }
+  .pillar-pills-wrap.hide { transform: translateY(-140%); opacity: 0; pointer-events: none; }
+  .pillar-pills {
+    display: flex; gap: 7px;
+    overflow-x: auto;
+    padding: 10px 16px;
+    scrollbar-width: none; -ms-overflow-style: none;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .pillar-pills::-webkit-scrollbar { display: none; }
+  @media (min-width: 1000px) { .pillar-pills { justify-content: center; } }
   .p-pill {
+    flex: none;
     display: inline-flex; align-items: center; gap: 8px;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--bg);
     padding: 10px 16px;
     font-size: 14px; font-weight: 500; color: var(--ink);
+    white-space: nowrap;
     text-decoration: none;
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease;
   }
-  .p-pill:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .p-pill:hover { border-color: var(--ink); }
   .p-pill svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
-
-  /* ===== Sticky pillar jump-nav ===== */
-  .pillarnav {
-    position: fixed; top: 64px; left: 0; right: 0; z-index: 50;
-    background: rgba(255,255,255,.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line-2);
-    transform: translateY(-140%); opacity: 0; pointer-events: none;
-    transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s;
-  }
-  .pillarnav.show { transform: none; opacity: 1; pointer-events: auto; }
-  .pillarnav .inner {
-    display: flex; gap: 7px; overflow-x: auto;
-    padding: 10px 16px;
-    scrollbar-width: none; -ms-overflow-style: none;
-    max-width: 1280px; margin: 0 auto;
-  }
-  .pillarnav .inner::-webkit-scrollbar { display: none; }
-  .pillarnav .p-pill { flex: none; white-space: nowrap; }
-  .pillarnav .p-pill.on { background: var(--ink); border-color: var(--ink); color: #fff; }
-  .pillarnav .p-pill.on svg { color: #fff; }
+  .p-pill.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .p-pill.on svg { color: #fff; }
 
   /* ===== Deep-dive shared ===== */
   .dd-section { padding: 56px 20px 64px; }
@@ -840,9 +832,9 @@
     <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
   </section>
 
-  <!-- ===================== STICKY PILLAR JUMP-NAV ===================== -->
-  <div class="pillarnav" id="pillarnav">
-    <div class="inner">
+  <!-- Pillar pills: in-flow above 01, stick to the top on scroll -->
+  <div class="pillar-pills-wrap" id="pillarnav" aria-label="What you get">
+    <div class="pillar-pills">
       <a class="p-pill" href="#warehouses" data-spy="warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
       <a class="p-pill" href="#shipping" data-spy="shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
       <a class="p-pill" href="#customs" data-spy="customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
@@ -850,23 +842,11 @@
     </div>
   </div>
 
-  <!-- Pillar pills: what you get, at a glance -->
-  <section aria-label="What you get" style="padding: 44px 0 0;">
-    <div class="pillar-pills">
-      <a class="p-pill reveal" href="#warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
-      <a class="p-pill reveal" href="#shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
-      <a class="p-pill reveal" href="#customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
-      <a class="p-pill reveal" href="#portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>One localized portal</a>
-    </div>
-  </section>
-
   <!-- ===================== PILLAR 1: RETURN WAREHOUSES ===================== -->
   <section class="dd-section" id="warehouses" style="padding-top: 28px;">
     <div class="dd-inner">
       <div class="dd-head reveal">
-        <span class="kicker">01 &middot; Return warehouses</span>
-        <h2>Returns that never leave the country they came from.</h2>
-        <p>A shopper in France returns to our Netherlands hub, not back across the Atlantic.</p>
+        <h2>Returns stay in the country.</h2>
       </div>
       <div class="dd-split reveal">
         <div class="dd-viz">
@@ -989,9 +969,7 @@
   <section class="dd-section alt" id="shipping">
     <div class="dd-inner">
       <div class="dd-head reveal">
-        <span class="kicker">02 &middot; Cross-border shipping</span>
-        <h2>Ship anything, anywhere, on the right label.</h2>
-        <p>Where a hub doesn&rsquo;t make sense yet, you still get our rate cards on every lane.</p>
+        <h2>Our carrier rates, everywhere.</h2>
       </div>
       <div class="dd-split flip reveal">
         <div class="dd-viz">
@@ -1016,7 +994,6 @@
           </div>
         </div>
         <div class="dd-body">
-          <h3 class="dd-sub">International carrier rates</h3>
           <ul class="dd-list">
             <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Our rates, not your volume.</b> No carrier contracts of your own.</li>
             <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>The best-priced label per route,</b> in 200+ countries.</li>
@@ -1031,9 +1008,7 @@
   <section class="dd-section" id="customs">
     <div class="dd-inner">
       <div class="dd-head reveal">
-        <span class="kicker">03 &middot; Customs clearance</span>
         <h2>No returns stuck at customs.</h2>
-        <p>Cross-border returns get held when the paperwork is wrong. Redo files it for you, correctly, before anything moves.</p>
       </div>
       <div class="dd-split reveal">
         <div class="dd-viz">
@@ -1079,9 +1054,7 @@
   <section class="dd-section alt" id="portal">
     <div class="dd-inner">
       <div class="dd-head reveal">
-        <span class="kicker">04 &middot; Localized return portal</span>
-        <h2>One portal that speaks every market&rsquo;s language.</h2>
-        <p>Hubs, rates and clearance are routing rules inside the returns app 4,000+ brands already run.</p>
+        <h2>One portal, every language.</h2>
       </div>
       <div class="dd-split flip reveal">
         <div class="dd-viz">
@@ -1369,22 +1342,17 @@
   if ('IntersectionObserver' in window && !reduce) {
     var io2 = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add('in'); io2.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
     document.querySelectorAll('.reveal').forEach(function(el){ io2.observe(el); });
-    document.querySelectorAll('.pillar-pills').forEach(function(grid){
-      var i = 0;
-      Array.prototype.forEach.call(grid.children, function(k){ if (k.classList && k.classList.contains('reveal')) { k.style.transitionDelay = (i * 60) + 'ms'; i++; } });
-    });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
 
-  /* ---- sticky pillar jump-nav + scroll-spy ---- */
+  /* ---- sticky pillar bar: hide near the form + scroll-spy ---- */
   (function(){
-    var pnav = document.getElementById('pillarnav'), pillars = document.getElementById('warehouses'), book = document.getElementById('book'); if (!pnav || !pillars) return;
+    var pnav = document.getElementById('pillarnav'), book = document.getElementById('book'); if (!pnav) return;
     var links = pnav.querySelectorAll('a[data-spy]');
     function vis(){
-      var pastPillars = pillars.getBoundingClientRect().top < 60;
       var atBook = book && book.getBoundingClientRect().top < window.innerHeight * 0.6;
-      pnav.classList.toggle('show', pastPillars && !atBook);
+      pnav.classList.toggle('hide', atBook);
     }
     vis(); addEventListener('scroll', vis, { passive: true }); addEventListener('resize', vis, { passive: true });
     if ('IntersectionObserver' in window) {

@@ -11,7 +11,7 @@ The Shipping free-trial landing page design ([Shipping-Free-Trial-Landing-Page](
 
 ## The form (demo request, not account signup)
 
-Fields mirror the real IR HubSpot form: name, business email, website URL (maps to Company `domain`), international orders last year (select, maps to Company `orders_last_year`). Hidden paid-attribution params (`utm_*`, `fbclid`, `li_fat_id`, `rdt_cid`) pass through from ad URLs. Notes:
+Fields mirror the real IR HubSpot form 1:1, same order and labels: Name, Email, Phone Number (optional), Company Domain Name (maps to Company `domain`), Number of online orders last year (select, maps to Company `orders_last_year`). Hidden paid-attribution params (`utm_*`, `fbclid`, `li_fat_id`, `rdt_cid`) pass through from ad URLs. Notes:
 
 - **The honeypot is `fax`, not `website`** — `website` is a real, visible field on this form. Do not "fix" this back.
 - On verified success the server returns `bookingUrl` and the page redirects to the demo calendar. Falls back to Mike's calendar until `BOOKING_URL` is set in Railway.

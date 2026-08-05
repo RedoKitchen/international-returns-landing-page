@@ -1082,12 +1082,9 @@
         <h2>What is this worth to your store?</h2>
       </div>
       <div class="savings reveal" id="savings-calc">
-        <div class="cap">Your number</div>
-        <h3>What running it in market is worth.</h3>
         <div class="sv-out">
           <div class="num" id="svNum">$170,000</div>
-          <div class="nl">a year in return savings, for a store your size</div>
-          <div class="nl" id="svBreak" style="margin-top: 8px; opacity: .75;">$170,000 from returns kept in market &middot; $0 more if you also fulfill forward</div>
+          <div class="nl">saved per year</div>
         </div>
         <div class="sv-row"><label for="svOrders">International orders a year</label><span class="v" id="svOrdVal">20,000</span></div>
         <input type="range" id="svOrders" min="0" max="1000" step="1" value="141" aria-label="International orders a year" />
@@ -1124,7 +1121,7 @@
   <section id="problem" style="padding: 48px 20px 56px;">
     <div class="m-section-head">
       <span class="kicker">Why it matters</span>
-      <h2>Broken international returns, by the numbers.</h2>
+      <h2>International returns, by the numbers.</h2>
     </div>
     <div class="m-stats-board">
       <div class="m-stat">
@@ -1634,25 +1631,28 @@
           </div>
           <label class="m-tf-field">
             <span>Name <em>*</em></span>
-            <input type="text" name="name" required autocomplete="name" />
+            <input type="text" name="name" required autocomplete="name" placeholder="First Name" />
           </label>
           <label class="m-tf-field">
-            <span>Business email <em>*</em></span>
-            <input type="email" name="email" required autocomplete="email" />
+            <span>Email <em>*</em></span>
+            <input type="email" name="email" required autocomplete="email" placeholder="Business Email Address" />
           </label>
           <label class="m-tf-field">
-            <span>Website URL <em>*</em></span>
-            <input type="text" name="website" inputmode="url" required autocomplete="url" placeholder="brand.com" />
+            <span>Phone Number</span>
+            <input type="tel" name="phone" inputmode="tel" autocomplete="tel" />
           </label>
           <label class="m-tf-field">
-            <span>International orders last year <em>*</em></span>
+            <span>Company Domain Name <em>*</em></span>
+            <input type="text" name="website" inputmode="url" required autocomplete="url" placeholder="Website URL" />
+          </label>
+          <label class="m-tf-field">
+            <span>Number of online orders last year <em>*</em></span>
             <select name="orders" required>
-              <option value="" disabled selected>Select a range&hellip;</option>
-              <option value="Under 10,000">Under 10,000</option>
-              <option value="10,000 to 50,000">10,000 to 50,000</option>
-              <option value="50,000 to 250,000">50,000 to 250,000</option>
-              <option value="250,000 to 1M">250,000 to 1M</option>
-              <option value="1M or more">1M or more</option>
+              <option value="" disabled selected>Number of online orders last year</option>
+              <option value="1200">0 &ndash; 1,200</option>
+              <option value="24000">1,200 &ndash; 24,000</option>
+              <option value="120000">24,001 &ndash; 120,000</option>
+              <option value="120001">120,001+</option>
             </select>
           </label>
           <div id="tf-ts-widget" class="cf-turnstile" style="margin-top:4px;"></div>
@@ -1794,12 +1794,10 @@
     var target = 0, shown = 0, raf = 0, ready = false;
     function set(v){ target = v; if (reduce || !ready) { shown = v; num.textContent = fmt(v); return; } if (!raf) raf = requestAnimationFrame(stepf); }
     function stepf(){ var d = target - shown; if (Math.abs(d) < Math.max(300, target * 0.002)) { shown = target; num.textContent = fmt(shown); raf = 0; return; } shown += d * 0.2; num.textContent = fmt(shown); raf = requestAnimationFrame(stepf); }
-    var brk = document.getElementById('svBreak');
     function calc(){
       var o = ordersFromSlider(+orders.value), share = +shareEl.value / 100, rr = +rrEl.value / 100,
           ret = o * rr * RET_SAVED, fwd = o * share * FWD_SAVED, total = ret + fwd;
       ordVal.textContent = o.toLocaleString('en-US') + (o >= ORD_MAX ? '+' : ''); shareVal.textContent = (+shareEl.value) + '%'; rrVal.textContent = (+rrEl.value) + '%';
-      if (brk) brk.textContent = fmt(ret) + ' from returns kept in market · ' + fmt(fwd) + ' more if you also fulfill forward';
       set(total); fill(orders); fill(shareEl); fill(rrEl);
     }
     [orders, shareEl, rrEl].forEach(function(el){ el.addEventListener('input', function(){ ready = true; calc(); }); });
@@ -1930,6 +1928,7 @@
       var payload = {
         name:           fd.get('name')      || '',
         email:          fd.get('email')     || '',
+        phone:          fd.get('phone')     || '',
         website:        fd.get('website')   || '',
         orders:         fd.get('orders')    || '',
         utm_source:     qs.get('utm_source')   || '',

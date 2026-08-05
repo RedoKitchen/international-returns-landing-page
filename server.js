@@ -180,6 +180,7 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   const allFields = [
     { objectTypeId: "0-1", name: "firstname",        value: b.name },
     { objectTypeId: "0-1", name: "email",            value: b.email },
+    { objectTypeId: "0-1", name: "phone",            value: b.phone },
     { objectTypeId: "0-2", name: "domain",           value: b.website },
     { objectTypeId: "0-2", name: "orders_last_year", value: b.orders },
     { objectTypeId: "0-1", name: "utm_source",       value: b.utm_source },
@@ -202,6 +203,7 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   if (b.pageUri) context.pageUri = b.pageUri;
   if (b.pageName) context.pageName = b.pageName;
 
+  let redirectUri = "";
   try {
     const hsRes = await fetch(
       `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL}/${HS_FORM}`,
@@ -216,13 +218,23 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
       console.error("HubSpot submission failed:", hsRes.status, text);
       return res.status(502).json({ ok: false, error: "hubspot_error" });
     }
+    // The form carries Logic rules (SMB / Growth / Mid Market / AU-NZ) that pick
+    // the right calendar per submission. HubSpot computes them server-side and
+    // returns the winner as redirectUri — honor it so the routing stays in
+    // HubSpot's hands. BOOKING_URL is only the fallback when no rule matches.
+    try {
+      const hsData = await hsRes.json();
+      if (hsData && typeof hsData.redirectUri === "string" && hsData.redirectUri) {
+        redirectUri = hsData.redirectUri;
+      }
+    } catch (_) { /* no JSON body — fall through to the fallback */ }
   } catch (err) {
     console.error("HubSpot submission error:", err);
     return res.status(502).json({ ok: false, error: "hubspot_error" });
   }
 
-  // Verified submission — only now do we hand back the booking URL.
-  return res.status(200).json({ ok: true, bookingUrl: BOOKING_URL });
+  // Verified submission — hand back the rule-chosen calendar, or the fallback.
+  return res.status(200).json({ ok: true, bookingUrl: redirectUri || BOOKING_URL });
 });
 
 app.use(BASE, express.static(__dirname, { extensions: ["html"] }));

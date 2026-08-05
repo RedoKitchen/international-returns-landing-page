@@ -380,39 +380,31 @@
     background: var(--bg);
     border: 1px solid var(--line-2);
     border-radius: var(--r-lg);
-    box-shadow: 0 18px 48px -28px rgba(20,20,19,.2);
-    overflow: hidden;
+    box-shadow: 0 18px 48px -28px rgba(20,20,19,.15);
+    padding: 6px 20px 10px;
   }
-  .cust-doc .cd-bar {
+  .cd-head {
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 14px 18px;
-    background: var(--bg-alt);
-    border-bottom: 1px solid var(--line-2);
+    padding: 14px 0 10px;
+    border-bottom: 1.5px solid var(--line);
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-3);
   }
-  .cust-doc .cd-title {
-    display: flex; align-items: center; gap: 9px;
-    font-size: 13px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em;
-  }
-  .cust-doc .cd-title svg { width: 17px; height: 17px; color: var(--ink-2); }
-  .cust-doc .cd-stamp {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid rgba(255,68,4,.35);
-    border-radius: 999px; padding: 5px 10px;
-  }
-  .cust-doc .cd-stamp svg { width: 13px; height: 13px; }
-  .cust-doc .cd-body { padding: 16px 20px 18px; }
+  .cd-head .ok { color: var(--accent); }
   .cd-row {
     display: flex; justify-content: space-between; gap: 14px;
-    padding: 10px 0;
-    border-bottom: 1px dashed var(--line-2);
-    font-size: 13.5px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 13px;
   }
   .cd-row:last-child { border-bottom: 0; }
   .cd-row .k { color: var(--ink-3); }
-  .cd-row .v { font-weight: 600; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
-  .cd-row .v.hs { color: var(--accent); letter-spacing: 0.02em; }
+  .cd-row .v { font-weight: 600; color: var(--ink); text-align: right; }
+  @media (min-width: 680px) {
+    .cd-row { font-size: 14.5px; }
+    .cd-head { font-size: 11.5px; }
+  }
   .brokers {
     margin-top: 12px;
     border: 1px solid var(--line-2);
@@ -1292,19 +1284,11 @@
       <div class="dd-split reveal">
         <div class="dd-viz">
           <div class="cust-doc">
-            <div class="cd-bar">
-              <div class="cd-title">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 12h6M9.5 15.5h6"/></svg>
-                Commercial invoice
-              </div>
-              <span class="cd-stamp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg> Cleared</span>
-            </div>
-            <div class="cd-body">
-              <div class="cd-row"><span class="k">Item</span><span class="v">Wool Coat &middot; 1</span></div>
-              <div class="cd-row"><span class="k">HS classification</span><span class="v hs">6201.40</span></div>
-              <div class="cd-row"><span class="k">Country of origin</span><span class="v">Portugal 🇵🇹</span></div>
-              <div class="cd-row"><span class="k">Duties &amp; taxes</span><span class="v">Refunded in full</span></div>
-            </div>
+            <div class="cd-head"><span>Commercial invoice</span><span class="ok">&#10003; Cleared</span></div>
+            <div class="cd-row"><span class="k">Item</span><span class="v">Wool Coat &middot; 1</span></div>
+            <div class="cd-row"><span class="k">Classification</span><span class="v">6201.40</span></div>
+            <div class="cd-row"><span class="k">Country of origin</span><span class="v">Portugal</span></div>
+            <div class="cd-row"><span class="k">Duties &amp; taxes</span><span class="v">Refunded in full</span></div>
           </div>
           <div class="brokers">
             <div class="bk-head">Cleared with licensed customs brokers in</div>
@@ -1318,7 +1302,6 @@
           </div>
         </div>
         <div class="dd-body">
-          <h3 class="dd-sub">What Redo handles</h3>
           <ul class="dd-list">
             <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>The customs forms, done for you.</b> Every item gets the right classification and invoice, automatically.</li>
             <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>No duty owed on returns.</b> Returned goods legally re-enter tax free. Our licensed brokers file the paperwork that makes that true.</li>

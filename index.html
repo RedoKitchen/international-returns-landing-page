@@ -242,39 +242,6 @@
     .m-card-list.cols-4 { grid-template-columns: repeat(4, 1fr); }
   }
 
-  /* ===== Brand logo marquee (shipping) ===== */
-  .m-brands { padding: 40px 0 32px; background: var(--bg); overflow: hidden; }
-  .m-brands-eyebrow {
-    text-align: center; font-size: 14px; color: var(--muted);
-    margin: 0 0 24px; font-weight: 500; padding: 0 20px;
-  }
-  .m-logo-marquee { display: flex; flex-direction: column; gap: 6px; }
-  .m-marquee-row { display: flex; gap: 6px; width: max-content; will-change: transform; }
-  .m-marquee-row.top    { animation: m-marquee-right 50s linear infinite; }
-  .m-marquee-row.bottom { animation: m-marquee-left  50s linear infinite; }
-  .m-marquee-row.all    { display: none; }
-  @keyframes m-marquee-left  { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 3px)); } }
-  @keyframes m-marquee-right { from { transform: translateX(calc(-50% - 3px)); } to { transform: translateX(0); } }
-  @media (prefers-reduced-motion: reduce) { .m-marquee-row { animation: none; } }
-  .m-logo-cell {
-    background: var(--gray-2);
-    border-radius: 10px;
-    height: 88px; width: 160px;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    padding: 14px 16px;
-  }
-  .m-logo-cell img {
-    max-width: 100%; max-height: 28px;
-    width: auto; height: auto;
-    object-fit: contain;
-    filter: brightness(0);
-    opacity: 0.85;
-  }
-  .m-logo-cell img[src*="liquid-death"]   { max-height: 56px; }
-  .m-logo-cell img[src*="summer-fridays"] { max-height: 38px; }
-  .m-logo-cell img[src*="malbon"]         { max-height: 24px; }
-
   /* ===== Sticky pillar jump-nav ===== */
   .pillarnav {
     position: sticky; top: 64px; z-index: 50;
@@ -968,7 +935,6 @@
       flex-wrap: wrap;
       flex-direction: row;
     }
-    .m-logo-cell { height: 64px; padding: 0 28px; }
     .m-tryfree-inner {
       display: grid;
       grid-template-columns: 1.05fr 1fr;
@@ -980,14 +946,6 @@
     .m-tryfree-card { margin: 0; align-self: start; }
   }
   @media (min-width: 1024px) {
-    .m-marquee-row.top, .m-marquee-row.bottom { display: none; }
-    .m-marquee-row.all { display: flex; animation: m-marquee-left 60s linear infinite; }
-    .m-logo-marquee { gap: 0; }
-    .m-logo-cell { height: 120px; width: 220px; padding: 18px 24px; }
-    .m-logo-cell img { max-height: 38px; }
-    .m-logo-cell img[src*="liquid-death"]   { max-height: 72px; }
-    .m-logo-cell img[src*="summer-fridays"] { max-height: 52px; }
-    .m-logo-cell img[src*="malbon"]         { max-height: 32px; }
     .m-hero { padding: 80px 40px 32px; max-width: 1020px; }
     .m-hero h1 { font-size: 68px; }
     .m-hero .lead { font-size: 19px; max-width: 700px; }
@@ -1187,69 +1145,6 @@
         </ul>
         <span class="m-card-link">See the portal</span>
       </a>
-    </div>
-  </section>
-
-  <!-- ===================== BRAND MARQUEE ===================== -->
-  <section class="m-brands">
-    <p class="m-brands-eyebrow">Trusted by 4,000+ brands you know and love</p>
-    <div class="m-logo-marquee">
-      <div class="m-marquee-row top" aria-hidden="false">
-        <div class="m-logo-cell"><img src="logos/skims.svg" alt="SKIMS" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/taylormade.png" alt="TaylorMade" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/liquid-death.png" alt="Liquid Death" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/lashify.png" alt="Lashify" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/summer-fridays.png" alt="Summer Fridays" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/skims.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/taylormade.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/liquid-death.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/lashify.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/summer-fridays.png" alt="" loading="lazy" /></div>
-      </div>
-      <div class="m-marquee-row bottom" aria-hidden="false">
-        <div class="m-logo-cell"><img src="logos/malbon.png" alt="Malbon" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/nutricost.png" alt="Nutricost" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/portland-leather.png" alt="Portland Leather" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/nike-strength.svg" alt="Nike Strength" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/just-ingredients.png" alt="Just Ingredients" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/malbon.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nutricost.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/portland-leather.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nike-strength.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/just-ingredients.png" alt="" loading="lazy" /></div>
-      </div>
-      <div class="m-marquee-row all" aria-hidden="false">
-        <div class="m-logo-cell"><img src="logos/skims.svg" alt="SKIMS" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/taylormade.png" alt="TaylorMade" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/liquid-death.png" alt="Liquid Death" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/lashify.png" alt="Lashify" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/summer-fridays.png" alt="Summer Fridays" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/malbon.png" alt="Malbon" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/nutricost.png" alt="Nutricost" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/portland-leather.png" alt="Portland Leather" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/nike-strength.svg" alt="Nike Strength" loading="lazy" /></div>
-        <div class="m-logo-cell"><img src="logos/just-ingredients.png" alt="Just Ingredients" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/skims.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/taylormade.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/liquid-death.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/lashify.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/summer-fridays.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/malbon.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nutricost.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/portland-leather.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nike-strength.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/just-ingredients.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/skims.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/taylormade.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/liquid-death.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/lashify.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/summer-fridays.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/malbon.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nutricost.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/portland-leather.png" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/nike-strength.svg" alt="" loading="lazy" /></div>
-        <div class="m-logo-cell" aria-hidden="true"><img src="logos/just-ingredients.png" alt="" loading="lazy" /></div>
-      </div>
     </div>
   </section>
 

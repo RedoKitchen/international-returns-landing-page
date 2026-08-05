@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="color-scheme" content="light only" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<base href="/international-returns-free-trial/" />
 <title>Get a Demo — Redo International Returns</title>
 <meta name="description" content="Get a demo of Redo International Returns. In-country return warehouses, carrier rates in 200+ countries, and expert customs clearance. No contract, live in days." />
 <link rel="icon" type="image/svg+xml" href="logos/redo-logo.svg" />
@@ -464,7 +463,7 @@
     // Cloudflare Turnstile token + rate-limits before forwarding to HubSpot. The
     // HubSpot portal/form IDs live in server env vars — deliberately NOT here, so
     // the public api.hsforms.com endpoint bots were POSTing to no longer exists.
-    var ENDPOINT = 'api/trial-signup';   // resolves under /international-returns-free-trial/ via <base>
+    var ENDPOINT = 'api/trial-signup';   // relative to the page URL (works on Railway and static hosts)
     // The booking URL is intentionally NOT here — the server returns it only after
     // a verified submission, so it never appears in page source for bots to scrape.
     var loadedAt = Date.now();

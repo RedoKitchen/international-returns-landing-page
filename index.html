@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="color-scheme" content="light only" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<base href="/international-returns-free-trial/" />
 <title>International Returns that work | Redo</title>
 <meta name="description" content="International returns that actually work. In-country return warehouses, carrier rates in 200+ countries, expert customs clearance, and a localized return portal, inside the returns platform 4,000+ brands already run." />
 <link rel="icon" type="image/svg+xml" href="logos/redo-logo.svg" />
@@ -1627,7 +1626,7 @@
     var form = document.getElementById('tf-form');
     if (!form) return;
 
-    var ENDPOINT = 'api/trial-signup';   // resolves under /international-returns-free-trial/ via <base>
+    var ENDPOINT = 'api/trial-signup';   // relative to the page URL (works on Railway and static hosts)
     // The booking URL is intentionally NOT here — the server returns it only after
     // a verified submission, so it never appears in page source for bots to scrape.
     var loadedAt = Date.now();

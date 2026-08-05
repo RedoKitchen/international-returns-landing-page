@@ -187,6 +187,27 @@
     margin-right: auto;
   }
 
+  /* ===== Pillar pills ===== */
+  .pillar-pills {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .p-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    padding: 10px 16px;
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .p-pill:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .p-pill svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+
   /* ===== Sticky pillar jump-nav ===== */
   .pillarnav {
     position: sticky; top: 64px; z-index: 50;
@@ -814,6 +835,16 @@
     </div>
   </section>
 
+  <!-- Pillar pills: what you get, at a glance -->
+  <section aria-label="What you get" style="padding: 4px 0 44px;">
+    <div class="pillar-pills">
+      <a class="p-pill reveal" href="#warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
+      <a class="p-pill reveal" href="#shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
+      <a class="p-pill reveal" href="#customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
+      <a class="p-pill reveal" href="#portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>One localized portal</a>
+    </div>
+  </section>
+
   <!-- ===================== BUYBACK ===================== -->
   <!-- [CONFIRM] buyback mechanics (eligible categories, grading, pricing, cash
        vs credit, markets) before paid traffic runs on it. Destruction ban:
@@ -1343,6 +1374,10 @@
   if ('IntersectionObserver' in window && !reduce) {
     var io2 = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add('in'); io2.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
     document.querySelectorAll('.reveal').forEach(function(el){ io2.observe(el); });
+    document.querySelectorAll('.pillar-pills').forEach(function(grid){
+      var i = 0;
+      Array.prototype.forEach.call(grid.children, function(k){ if (k.classList && k.classList.contains('reveal')) { k.style.transitionDelay = (i * 60) + 'ms'; i++; } });
+    });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }

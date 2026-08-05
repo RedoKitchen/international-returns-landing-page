@@ -309,16 +309,10 @@
             <label>Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
           </div>
 
-          <div class="trial-row-split">
-            <label class="trial-field">
-              <span>First name <em>*</em></span>
-              <input type="text" name="firstName" required maxlength="40" autocomplete="given-name" />
-            </label>
-            <label class="trial-field">
-              <span>Last name <em>*</em></span>
-              <input type="text" name="lastName" required maxlength="40" autocomplete="family-name" />
-            </label>
-          </div>
+          <label class="trial-field">
+            <span>Name <em>*</em></span>
+            <input type="text" name="name" required maxlength="80" autocomplete="name" />
+          </label>
 
           <label class="trial-field">
             <span>Business email <em>*</em></span>
@@ -331,27 +325,14 @@
           </label>
 
           <label class="trial-field">
-            <span>Top international market</span>
-            <select name="markets">
-              <option value="" disabled selected>Select&hellip;</option>
-              <option value="canada">Canada</option>
-              <option value="uk">United Kingdom</option>
-              <option value="eu">European Union</option>
-              <option value="australia">Australia</option>
-              <option value="us">United States</option>
-              <option value="multiple">Several of the above</option>
-            </select>
-          </label>
-
-          <label class="trial-field">
-            <span>International orders last year</span>
-            <select name="orders">
+            <span>International orders last year <em>*</em></span>
+            <select name="orders" required>
               <option value="" disabled selected>Select a range&hellip;</option>
-              <option value="lt10k">Under 10,000</option>
-              <option value="10-50k">10,000 to 50,000</option>
-              <option value="50-250k">50,000 to 250,000</option>
-              <option value="250k-1m">250,000 to 1M</option>
-              <option value="1m">1M or more</option>
+              <option value="Under 10,000">Under 10,000</option>
+              <option value="10,000 to 50,000">10,000 to 50,000</option>
+              <option value="50,000 to 250,000">50,000 to 250,000</option>
+              <option value="250,000 to 1M">250,000 to 1M</option>
+              <option value="1M or more">1M or more</option>
             </select>
           </label>
 
@@ -520,15 +501,18 @@
       // Capture UTM params so attribution lands on the contact.
       var qs = new URLSearchParams(window.location.search);
       var payload = {
-        firstName:      fd.get('firstName') || '',
-        lastName:       fd.get('lastName')  || '',
+        name:           fd.get('name')      || '',
         email:          fd.get('email')     || '',
         website:        fd.get('website')   || '',
-        markets:        fd.get('markets')   || '',
         orders:         fd.get('orders')    || '',
         utm_source:     qs.get('utm_source')   || '',
         utm_medium:     qs.get('utm_medium')   || '',
         utm_campaign:   qs.get('utm_campaign') || '',
+        utm_content:    qs.get('utm_content')  || '',
+        utm_product:    qs.get('utm_product')  || '',
+        fbclid:         qs.get('fbclid')       || '',
+        li_fat_id:      qs.get('li_fat_id')    || '',
+        rdt_cid:        qs.get('rdt_cid')      || '',
         fax:            fd.get('fax')       || '', // honeypot (server re-checks)
         turnstileToken: tsToken,
         elapsedMs:      Date.now() - loadedAt,

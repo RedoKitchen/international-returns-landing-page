@@ -31,11 +31,12 @@ const HS_FORM            = process.env.HS_FORM            || "";
 const BOOKING_URL        = process.env.BOOKING_URL || "https://meetings.hubspot.com/michael-rose4/mikes-calendar-link";
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-// HubSpot property internal names for the International Returns demo form.
-// [CONFIRM] the two custom properties below must match the internal names on the
-// HubSpot form marketing creates for this page — adjust here if they differ.
-const PROP_TOP_MARKET  = "top_international_market";
-const PROP_INTL_ORDERS = "international_orders_last_year";
+// Field mapping mirrors the real IR HubSpot form (see its share page):
+//   - firstname, email + attribution fields live on the Contact (objectTypeId 0-1)
+//   - the website URL maps to Company DOMAIN, and orders_last_year is also
+//     on the Company object (objectTypeId 0-2) — same pattern as other Redo forms
+// The form also carries hidden paid-attribution fields (utm_*, fbclid,
+// li_fat_id, rdt_cid) which the page forwards from ad URLs.
 
 // Minimum seconds a real human needs to fill the form. Bots submit instantly.
 const MIN_FILL_MS = 3000;
@@ -160,7 +161,7 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
   }
 
   // 5. Server-side validation of required fields (never trust the client).
-  const required = ["firstName", "lastName", "email", "website"];
+  const required = ["name", "email", "website", "orders"];
   for (const f of required) {
     if (!String(b[f] || "").trim()) {
       return res.status(400).json({ ok: false, error: "missing_fields" });
@@ -177,15 +178,18 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
 
   // 6. Build the HubSpot payload and forward.
   const allFields = [
-    { objectTypeId: "0-1", name: "firstname",      value: b.firstName },
-    { objectTypeId: "0-1", name: "lastname",       value: b.lastName },
-    { objectTypeId: "0-1", name: "email",          value: b.email },
-    { objectTypeId: "0-1", name: "website",        value: b.website },
-    { objectTypeId: "0-1", name: PROP_TOP_MARKET,  value: b.markets },
-    { objectTypeId: "0-1", name: PROP_INTL_ORDERS, value: b.orders },
-    { objectTypeId: "0-1", name: "utm_source",     value: b.utm_source },
-    { objectTypeId: "0-1", name: "utm_medium",     value: b.utm_medium },
-    { objectTypeId: "0-1", name: "utm_campaign",   value: b.utm_campaign },
+    { objectTypeId: "0-1", name: "firstname",        value: b.name },
+    { objectTypeId: "0-1", name: "email",            value: b.email },
+    { objectTypeId: "0-2", name: "domain",           value: b.website },
+    { objectTypeId: "0-2", name: "orders_last_year", value: b.orders },
+    { objectTypeId: "0-1", name: "utm_source",       value: b.utm_source },
+    { objectTypeId: "0-1", name: "utm_medium",       value: b.utm_medium },
+    { objectTypeId: "0-1", name: "utm_campaign",     value: b.utm_campaign },
+    { objectTypeId: "0-1", name: "utm_content",      value: b.utm_content },
+    { objectTypeId: "0-1", name: "utm_product",      value: b.utm_product || "International Returns" },
+    { objectTypeId: "0-1", name: "fbclid",           value: b.fbclid },
+    { objectTypeId: "0-1", name: "li_fat_id",        value: b.li_fat_id },
+    { objectTypeId: "0-1", name: "rdt_cid",          value: b.rdt_cid },
   ];
   const fields = allFields
     .map((f) => ({ ...f, value: String(f.value == null ? "" : f.value).trim() }))

@@ -998,13 +998,11 @@
           <div class="nl">saved per year</div>
         </div>
         <div class="sv-row"><label for="svOrders">International orders a year</label><span class="v" id="svOrdVal">20,000</span></div>
-        <input type="range" id="svOrders" min="0" max="1000" step="1" value="141" aria-label="International orders a year" />
+        <input type="range" id="svOrders" min="0" max="1000" step="1" value="575" aria-label="International orders a year" />
         <div class="sv-row"><label for="svRr">Return rate</label><span class="v" id="svRrVal">25%</span></div>
         <input type="range" id="svRr" min="5" max="45" step="1" value="25" aria-label="Return rate" />
-        <div class="sv-row"><label for="svShare">Share you&rsquo;d also fulfill from a hub</label><span class="v" id="svShareVal">0%</span></div>
-        <input type="range" id="svShare" min="0" max="100" step="5" value="0" aria-label="Share fulfilled from an in-market hub" />
         <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get my exact number</a>
-        <div class="sv-foot">Rough estimate: $34 saved on every return kept in market, plus $21.50 on every order you also fulfill from the hub. Exact figure on the call.</div>
+        <div class="sv-foot">Rough estimate: $34 saved on every return kept in market. Exact figure on the call.</div>
       </div>
       <div class="cmptable reveal">
         <div class="cmp-head">
@@ -1588,24 +1586,28 @@
 
   /* ---- savings: count-up default on scroll-in, then live on drag ---- */
   (function(){
-    var orders = document.getElementById('svOrders'), shareEl = document.getElementById('svShare'), rrEl = document.getElementById('svRr'),
-        ordVal = document.getElementById('svOrdVal'), shareVal = document.getElementById('svShareVal'), rrVal = document.getElementById('svRrVal'), num = document.getElementById('svNum');
+    var orders = document.getElementById('svOrders'), rrEl = document.getElementById('svRr'),
+        ordVal = document.getElementById('svOrdVal'), rrVal = document.getElementById('svRrVal'), num = document.getElementById('svNum');
     if (!orders) return;
     /* [CONFIRM] per-order savings assumptions live here */
-    var ORD_MAX = 1000000, FWD_SAVED = 21.5, RET_SAVED = 34;
+    var ORD_MAX = 1000000, ORD_MID = 10000, RET_SAVED = 34;
     function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
     function fill(el){ el.style.backgroundSize = ((el.value - el.min) / (el.max - el.min) * 100) + '% 100%'; }
-    function ordersFromSlider(t){ return Math.round(ORD_MAX * Math.pow(t / 1000, 2) / 1000) * 1000; }
+    function ordersFromSlider(t){
+      if (t <= 500) return Math.round(ORD_MID * (t / 500) / 500) * 500;
+      var o = ORD_MID * Math.pow(ORD_MAX / ORD_MID, (t - 500) / 500);
+      return Math.round(o / 1000) * 1000;
+    }
     var target = 0, shown = 0, raf = 0, ready = false;
     function set(v){ target = v; if (reduce || !ready) { shown = v; num.textContent = fmt(v); return; } if (!raf) raf = requestAnimationFrame(stepf); }
     function stepf(){ var d = target - shown; if (Math.abs(d) < Math.max(300, target * 0.002)) { shown = target; num.textContent = fmt(shown); raf = 0; return; } shown += d * 0.2; num.textContent = fmt(shown); raf = requestAnimationFrame(stepf); }
     function calc(){
-      var o = ordersFromSlider(+orders.value), share = +shareEl.value / 100, rr = +rrEl.value / 100,
-          ret = o * rr * RET_SAVED, fwd = o * share * FWD_SAVED, total = ret + fwd;
-      ordVal.textContent = o.toLocaleString('en-US') + (o >= ORD_MAX ? '+' : ''); shareVal.textContent = (+shareEl.value) + '%'; rrVal.textContent = (+rrEl.value) + '%';
-      set(total); fill(orders); fill(shareEl); fill(rrEl);
+      var o = ordersFromSlider(+orders.value), rr = +rrEl.value / 100,
+          total = o * rr * RET_SAVED;
+      ordVal.textContent = o.toLocaleString('en-US') + (o >= ORD_MAX ? '+' : ''); rrVal.textContent = (+rrEl.value) + '%';
+      set(total); fill(orders); fill(rrEl);
     }
-    [orders, shareEl, rrEl].forEach(function(el){ el.addEventListener('input', function(){ ready = true; calc(); }); });
+    [orders, rrEl].forEach(function(el){ el.addEventListener('input', function(){ ready = true; calc(); }); });
     calc();
     if ('IntersectionObserver' in window && !reduce) {
       var io = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { shown = 0; ready = true; var t = target; target = 0; set(t); io.unobserve(x.target); } }); }, { threshold: .5 });

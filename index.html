@@ -670,6 +670,54 @@
   .savings .btn { margin-top: 16px; width: 100%; }
   .sv-foot { font-size: 11px; color: var(--ink-3); text-align: center; margin-top: 10px; line-height: 1.4; }
 
+  /* ===== Stats board (shipping pattern) ===== */
+  .m-stats-board {
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .m-stat { padding: 36px 12px 32px; text-align: center; position: relative; }
+  .m-stat + .m-stat::before {
+    content: ""; position: absolute;
+    top: 22px; bottom: 22px; left: 0;
+    width: 1px; background: var(--line-2);
+  }
+  .m-stat:nth-child(2n+1)::before { display: none; }
+  .m-stat:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+  .m-stat-val {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(52px, 16vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    color: var(--accent);
+    margin: 0 0 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .m-stat-val .ital { font-style: italic; }
+  .m-stat-lbl {
+    font-size: 11px; color: var(--ink-3); line-height: 1.4;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+    padding: 0 6px;
+  }
+  .m-stats-note {
+    max-width: 560px; margin: 32px auto 0;
+    font-size: 10px; line-height: 1.5; color: var(--ink-3); opacity: 0.5;
+    text-align: center; padding: 0 16px; letter-spacing: 0.01em;
+  }
+  @media (min-width: 720px) {
+    .m-stats-board { grid-template-columns: repeat(4, 1fr); }
+    .m-stat:nth-child(n+3) { border-top: none; }
+    .m-stat + .m-stat::before { display: block; }
+    .m-stat:nth-child(2n+1)::before { display: block; }
+    .m-stat:first-child::before { display: none; }
+  }
+
   /* ===== Dark buyback band ===== */
   .m-cta {
     background: var(--bg-dark);
@@ -928,7 +976,7 @@
       <span class="rw hl">we buy from you.</span>
       <span class="rw hl">without the hassle.</span>
     </span></h1>
-    <p class="lead" id="hero-lead">International returns crush your conversion and your bottom line. Redo solves the whole problem: return warehouses in your main markets, carrier rates and clearance in smaller ones, native inside the #1 returns app on Shopify.</p>
+    <p class="lead" id="hero-lead">Return warehouses in your main markets, carrier rates and customs clearance everywhere else. Native inside the #1 returns app on Shopify.</p>
     <div class="m-hero-cta">
       <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get a demo →</a>
       <a href="#warehouses" class="btn btn-secondary btn-lg">See how it works</a>
@@ -938,6 +986,89 @@
       <li>Live in days</li>
       <li>Hubs in the US, CA, UK, EU, AU</li>
     </ul>
+  </section>
+
+  <!-- ===================== BUYBACK ===================== -->
+  <!-- [CONFIRM] buyback mechanics (eligible categories, grading, pricing, cash
+       vs credit, markets) before paid traffic runs on it. Destruction ban:
+       ESPR, in force for large companies July 19, 2026; SMEs get later dates. -->
+  <section class="m-cta" id="buyback">
+    <h2>We&rsquo;ll buy your international returns.</h2>
+    <p>Destroying unsold textiles is now banned in the EU. Sell them to us instead: inspected at a local hub, bought by Redo, resold in market. You get paid instead of paying freight.</p>
+    <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
+  </section>
+
+  <!-- ===================== SAVINGS + COMPARISON ===================== -->
+  <section class="dd-section" id="savings">
+    <div class="dd-inner">
+      <div class="m-section-head" style="margin-bottom: 0;">
+        <span class="kicker">The math</span>
+        <h2>What is this worth to your store?</h2>
+      </div>
+      <div class="savings reveal" id="savings-calc">
+        <div class="cap">Your number</div>
+        <h3>What running it in market is worth.</h3>
+        <div class="sv-out">
+          <div class="num" id="svNum">$170,000</div>
+          <div class="nl">a year in return savings, for a store your size</div>
+          <div class="nl" id="svBreak" style="margin-top: 8px; opacity: .75;">$170,000 from returns kept in market &middot; $0 more if you also fulfill forward</div>
+        </div>
+        <div class="sv-row"><label for="svOrders">International orders a year</label><span class="v" id="svOrdVal">20,000</span></div>
+        <input type="range" id="svOrders" min="0" max="1000" step="1" value="141" aria-label="International orders a year" />
+        <div class="sv-row"><label for="svRr">Return rate</label><span class="v" id="svRrVal">25%</span></div>
+        <input type="range" id="svRr" min="5" max="45" step="1" value="25" aria-label="Return rate" />
+        <div class="sv-row"><label for="svShare">Share you&rsquo;d also fulfill from a hub</label><span class="v" id="svShareVal">0%</span></div>
+        <input type="range" id="svShare" min="0" max="100" step="5" value="0" aria-label="Share fulfilled from an in-market hub" />
+        <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get my exact number</a>
+        <div class="sv-foot">Rough estimate: $34 saved on every return kept in market, plus $21.50 on every order you also fulfill from the hub. Exact figure on the call.</div>
+      </div>
+      <div class="cmp2">
+        <div class="cmpcard reveal">
+          <div class="ct"><span>✕</span> Run it across the border</div>
+          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$49</span></div>
+          <div class="cmprow"><span class="k">Time to refund</span><span class="v">10&ndash;14 days</span></div>
+          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$34 an order</span></div>
+          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Rarely refunded</span></div>
+          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Dead stock at home</span></div>
+        </div>
+        <div class="cmpcard new reveal">
+          <div class="ct"><span>✓</span> Run it in market with Redo</div>
+          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$15</span></div>
+          <div class="cmprow"><span class="k">Time to refund</span><span class="v">3&ndash;4 days</span></div>
+          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$12.50 an order</span></div>
+          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Refunded in full</span></div>
+          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Resold in market</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== WHY IT MATTERS (stats board) ===================== -->
+  <section id="problem" style="padding: 48px 20px 56px;">
+    <div class="m-section-head">
+      <span class="kicker">Why it matters</span>
+      <h2>Broken international returns, by the numbers.</h2>
+    </div>
+    <div class="m-stats-board">
+      <div class="m-stat">
+        <div class="m-stat-val">80<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Read the return policy before buying</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">70<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Cheaper per return kept in market</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">3<span class="ital">&ndash;4</span></div>
+        <div class="m-stat-lbl">Days to refund, not 10&ndash;14</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">4<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Of turnover in EU penalties</div>
+      </div>
+    </div>
+    <p class="m-stats-note">Survey and return-cost figures illustrative, typical apparel-weight parcels.<br />Exact lane math on the call.</p>
   </section>
 
   <!-- Pillar cards -->
@@ -1049,41 +1180,6 @@
     </div>
   </section>
 
-  <!-- ===================== THE PROBLEM ===================== -->
-  <section id="problem" style="padding: 48px 0 56px;">
-    <div class="m-section-head">
-      <span class="kicker">The stakes</span>
-      <h2>Why brands care.</h2>
-      <p>Broken international returns hurt every part of the business.</p>
-    </div>
-    <div class="m-card-list cols-4">
-      <div class="m-card reveal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l7 7 4-4 7 7"/><path d="M21 16v-3h-3"/><path d="M3 20h18"/></svg></div>
-        <h3>Lower conversion</h3>
-        <p><b>80% of surveyed international shoppers read the return policy before they check out.</b> &ldquo;Final sale&rdquo; and &ldquo;buy your own label&rdquo; are the last thing they read before they abandon.</p>
-        <div class="m-card-tag">Lost at the cart</div>
-      </div>
-      <div class="m-card reveal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2a3 3 0 0 0-2.5-1.2c-1.6 0-2.6.8-2.6 1.9 0 2.6 5.2 1.4 5.2 4.1 0 1.2-1.1 2-2.6 2a3 3 0 0 1-2.6-1.3"/><path d="M12 6.2v11.6"/></svg></div>
-        <h3>High costs</h3>
-        <p>A cross-border return crosses the border twice: $25&ndash;80 on the label, brokerage on top, and a unit that lands back home too late and too far from the market that wanted it.</p>
-        <div class="m-card-tag">Margin, twice over</div>
-      </div>
-      <div class="m-card reveal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M12 9v4"/><path d="M12 16.2v.1"/></svg></div>
-        <h3>Compliance risk</h3>
-        <p>HS codes, commercial invoices, duty and VAT refunds, EU right-of-withdrawal rules, and the new destruction ban. Get any of it wrong and it&rsquo;s held freight or a regulator&rsquo;s letter.</p>
-        <div class="m-card-tag">Up to 4% of turnover</div>
-      </div>
-      <div class="m-card reveal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-6l-4 3v-3H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M9.5 9h7M9.5 12h4"/></svg></div>
-        <h3>Stacked CX tickets</h3>
-        <p>Two-week transits generate &ldquo;where is my package&rdquo; and &ldquo;where is my refund&rdquo; on repeat, in languages and time zones your team doesn&rsquo;t cover.</p>
-        <div class="m-card-tag">The queue that never clears</div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== STICKY PILLAR JUMP-NAV ===================== -->
   <div class="pillarnav" id="pillarnav">
     <div class="inner">
@@ -1100,7 +1196,7 @@
       <div class="dd-head reveal">
         <span class="kicker">01 &middot; Return warehouses</span>
         <h2>Returns that never leave the country they came from.</h2>
-        <p>A shopper in France returns to our Netherlands hub, not back across the Atlantic. Shared hubs in five regions give you a local return address without a lease, a 3PL RFP, or headcount.</p>
+        <p>A shopper in France returns to our Netherlands hub, not back across the Atlantic.</p>
       </div>
       <div class="dd-split reveal">
         <div class="dd-viz">
@@ -1208,9 +1304,9 @@
         </div>
         <div class="dd-body">
           <ul class="dd-list">
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>No warehouse of your own.</b> Shared hubs in the US, Canada, UK, EU and Australia give you a local return address on day one.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Refunds out in 3 to 4 days,</b> which is where the &ldquo;where is my refund&rdquo; tickets go to die.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Inspected before the money moves.</b> Every unit is scanned and graded at the hub, so wardrobing and empty-box claims don&rsquo;t ride through on trust.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>No warehouse of your own.</b> Shared hubs in the US, CA, UK, EU and Australia.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Refunds out in 3 to 4 days.</b> Where the &ldquo;where is my refund&rdquo; tickets go to die.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Inspected before the money moves.</b> No wardrobing, no empty-box claims.</li>
           </ul>
           <a href="#savings-calc" class="btn btn-primary" style="margin-top: 22px;">Size my savings</a>
         </div>
@@ -1243,42 +1339,11 @@
 
       <div class="dd-divider"></div>
 
-      <div class="reveal">
-        <span class="kicker">01b &middot; Forward fulfillment</span>
-        <h3 class="dd-sub">And once the hub is there, ship orders out of it too.</h3>
-        <p class="dd-sublead">Optional, and most brands add it in year two. Same building, same integration. Here is the math on one order into the EU, shipped from a US warehouse versus shipped from our Netherlands hub.</p>
-      </div>
-      <!-- [CONFIRM] swap in the finalized per-order rate card before launch -->
-      <div class="bizgrid">
-        <div class="biz reveal">
-          <div class="bz-cap">Cross-border from home</div>
-          <h4>$46.25 an order</h4>
-          <div class="bz-sub">7&ndash;12 days in transit, duty and brokerage on every parcel, and the return crosses the border a second time.</div>
-          <div class="bz-row muted"><span>International parcel</span><span class="v">$26.00</span></div>
-          <div class="bz-row muted"><span>Duty, VAT handling &amp; brokerage</span><span class="v">$8.00</span></div>
-          <div class="bz-row muted"><span>Cost to deliver</span><span class="v">$34.00</span></div>
-          <div class="bz-row muted"><span>Cross-border return, all-in</span><span class="v">$49.00</span></div>
-          <div class="bz-row muted"><span>Returns, at a 25% rate</span><span class="v">+ $12.25</span></div>
-          <div class="bz-row total"><span>All-in per order</span><span class="v" style="color: var(--ink-3);">$46.25</span></div>
-        </div>
-        <div class="biz hero-case reveal">
-          <div class="bz-cap">Forward fulfilled from the hub</div>
-          <h4>$16.25 an order</h4>
-          <div class="bz-sub">2&ndash;3 days in transit, cleared once in bulk on the way in, and the return never leaves the country.</div>
-          <div class="bz-row"><span>Inbound freight, per unit</span><span class="v">$3.00</span></div>
-          <div class="bz-row"><span>Pick &amp; pack</span><span class="v">$2.50</span></div>
-          <div class="bz-row"><span>Domestic label</span><span class="v">$7.00</span></div>
-          <div class="bz-row"><span>Cost to deliver</span><span class="v">$12.50</span></div>
-          <div class="bz-row"><span>In-market return, all-in</span><span class="v">$15.00</span></div>
-          <div class="bz-row"><span>Returns, at a 25% rate</span><span class="v">+ $3.75</span></div>
-          <div class="bz-row total"><span>All-in per order</span><span class="v">$16.25</span></div>
-        </div>
-      </div>
       <div class="biz reveal" style="margin-top: 14px;">
         <div class="bz-cap">The business case</div>
         <div class="bz-big">&asymp; $30 saved per order</div>
-        <p class="dd-sublead" style="margin-top: 4px;"><b>$21.50 on the way out</b>, plus the <b>$34 saved on every return</b> above, which at a 25% return rate is <b>$8.50 an order</b>. Call it <b>$30 an order</b> all-in, so a brand doing <b>2,000 orders a month</b> into the EU keeps roughly <b>$60,000 a month</b>, about <b>$720K a year</b>. Before you count the conversion lift from two-day delivery and a local return address.</p>
-        <div class="bz-note">Illustrative figures based on typical apparel-weight parcels and a 25% return rate. Your exact lane math comes back on the call.</div>
+        <p class="dd-sublead" style="margin-top: 4px;">All-in, when you also fulfill forward from the same hub. A brand doing <b>2,000 EU orders a month</b> keeps roughly <b>$720K a year</b>.</p>
+        <div class="bz-note">Illustrative, typical apparel-weight parcels and a 25% return rate. Exact lane math on the call.</div>
       </div>
     </div>
   </section>
@@ -1289,7 +1354,7 @@
       <div class="dd-head reveal">
         <span class="kicker">02 &middot; Cross-border shipping</span>
         <h2>Ship anything, anywhere, on the right label.</h2>
-        <p>Where a hub doesn&rsquo;t make sense yet, you still get our rate cards. One integration covers every carrier we run, and routing picks the best-priced label on the lane automatically.</p>
+        <p>Where a hub doesn&rsquo;t make sense yet, you still get our rate cards on every lane.</p>
       </div>
       <div class="dd-split flip reveal">
         <div class="dd-viz">
@@ -1316,9 +1381,9 @@
         <div class="dd-body">
           <h3 class="dd-sub">International carrier rates</h3>
           <ul class="dd-list">
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Our rates, not your volume.</b> Negotiated cards across every lane we run, with no carrier contracts of your own.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>The best-priced label per route,</b> chosen automatically, in 200+ countries.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Paperless QR drop-off</b> wherever the carrier supports it. No printer, no box, no ticket.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Our rates, not your volume.</b> No carrier contracts of your own.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>The best-priced label per route,</b> in 200+ countries.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Paperless QR drop-off.</b> No printer, no box, no ticket.</li>
           </ul>
         </div>
       </div>
@@ -1331,7 +1396,7 @@
       <div class="dd-head reveal">
         <span class="kicker">03 &middot; Customs clearance</span>
         <h2>Cleared at the border before it ever ships.</h2>
-        <p>Paperwork that&rsquo;s already correct when the shipment arrives is the difference between a return that clears and a return that sits in a bonded warehouse. Licensed brokers in every market we run, both directions.</p>
+        <p>Licensed brokers in every market we run, both directions. Nothing sits in a bonded warehouse.</p>
       </div>
       <div class="dd-split reveal">
         <div class="dd-viz">
@@ -1364,9 +1429,9 @@
         <div class="dd-body">
           <h3 class="dd-sub">Clearance and data flows</h3>
           <ul class="dd-list">
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Every item classified</b> with the correct HS code and country of origin, so nothing gets held.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Invoices and filings handled electronically</b> by licensed brokers in each market. Goods clear duty and tax free, both directions.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Duties and taxes refunded in full,</b> not just the product. Short the customer and you lose the repeat order.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Every item classified</b> with the correct HS code.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Filed by licensed brokers.</b> Cleared duty and tax free, both directions.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Duties and taxes refunded in full,</b> not just the product.</li>
           </ul>
           <!-- [CONFIRM] legal phrasing on both EU claims before paid traffic -->
           <div class="eu-callout">
@@ -1385,7 +1450,7 @@
       <div class="dd-head reveal">
         <span class="kicker">04 &middot; Localized return portal</span>
         <h2>One portal that speaks every market&rsquo;s language.</h2>
-        <p>The hubs, the rates and the clearance aren&rsquo;t a separate international product bolted on the side. They&rsquo;re routing rules inside the returns app 4,000+ brands already run, so your team runs one workflow whether the order shipped to Ohio or Osaka.</p>
+        <p>Hubs, rates and clearance are routing rules inside the returns app 4,000+ brands already run.</p>
       </div>
       <div class="dd-split flip reveal">
         <div class="dd-viz">
@@ -1421,71 +1486,15 @@
         </div>
         <div class="dd-body">
           <ul class="dd-list">
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Any language and currency,</b> per shopper. The whole flow, not a translated button.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Any language and currency,</b> per shopper.</li>
             <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Any country&rsquo;s VAT, taxes, and return window,</b> handled for you.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Exchanges, store credit, and rules</b> that keep the revenue instead of refunding it, in every market.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>One dashboard for every market,</b> with return reasons and hub-level data your merchandising team can actually use.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Exchanges and store credit first,</b> in every market.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>One dashboard for every market,</b> with hub-level data.</li>
           </ul>
           <a id="get-started" href="#book" class="btn btn-primary" style="margin-top: 22px;">Get a demo</a>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ===================== SAVINGS + COMPARISON ===================== -->
-  <section class="dd-section" id="savings">
-    <div class="dd-inner">
-      <div class="m-section-head" style="margin-bottom: 0;">
-        <span class="kicker">The math</span>
-        <h2>Keep it local, keep the margin.</h2>
-      </div>
-      <div class="cmp2">
-        <div class="cmpcard reveal">
-          <div class="ct"><span>✕</span> Run it across the border</div>
-          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$49</span></div>
-          <div class="cmprow"><span class="k">Time to refund</span><span class="v">10&ndash;14 days</span></div>
-          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$34 an order</span></div>
-          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Rarely refunded</span></div>
-          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Dead stock at home</span></div>
-        </div>
-        <div class="cmpcard new reveal">
-          <div class="ct"><span>✓</span> Run it in market with Redo</div>
-          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$15</span></div>
-          <div class="cmprow"><span class="k">Time to refund</span><span class="v">3&ndash;4 days</span></div>
-          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$12.50 an order</span></div>
-          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Refunded in full</span></div>
-          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Resold in market</span></div>
-        </div>
-      </div>
-
-      <div class="savings reveal" id="savings-calc">
-        <div class="cap">Your number</div>
-        <h3>What running it in market is worth.</h3>
-        <div class="sv-out">
-          <div class="num" id="svNum">$170,000</div>
-          <div class="nl">a year in return savings, for a store your size</div>
-          <div class="nl" id="svBreak" style="margin-top: 8px; opacity: .75;">$170,000 from returns kept in market &middot; $0 more if you also fulfill forward</div>
-        </div>
-        <div class="sv-row"><label for="svOrders">International orders a year</label><span class="v" id="svOrdVal">20,000</span></div>
-        <input type="range" id="svOrders" min="0" max="1000" step="1" value="141" aria-label="International orders a year" />
-        <div class="sv-row"><label for="svRr">Return rate</label><span class="v" id="svRrVal">25%</span></div>
-        <input type="range" id="svRr" min="5" max="45" step="1" value="25" aria-label="Return rate" />
-        <div class="sv-row"><label for="svShare">Share you&rsquo;d also fulfill from a hub</label><span class="v" id="svShareVal">0%</span></div>
-        <input type="range" id="svShare" min="0" max="100" step="5" value="0" aria-label="Share fulfilled from an in-market hub" />
-        <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get my exact number</a>
-        <div class="sv-foot">Rough estimate: $34 saved on every return kept in market, plus $21.50 on every order you also fulfill from the hub. Exact figure on the call.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== BUYBACK ===================== -->
-  <!-- [CONFIRM] buyback mechanics (eligible categories, grading, pricing, cash
-       vs credit, markets) before paid traffic runs on it. Destruction ban:
-       ESPR, in force for large companies July 19, 2026; SMEs get later dates. -->
-  <section class="m-cta" id="buyback">
-    <h2>We&rsquo;ll buy your international returns.</h2>
-    <p>Destroying unsold textiles is now banned in the EU. So don&rsquo;t pay to freight returns home: units land at a local Redo hub, get inspected and graded, and we buy the eligible stock and resell it in market. You get paid instead of paying.</p>
-    <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
   </section>
 
   <!-- ===================== FINAL CTA + FORM ===================== -->

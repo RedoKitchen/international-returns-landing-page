@@ -1042,6 +1042,43 @@
     .m-feature-sheet { max-width: 1280px; }
     .m-carousel { max-width: 1240px; }
   }
+
+  /* ===== Hero map (from IR-LP-V4): EU returns consolidating at the NL hub ===== */
+  .m-map-stage { width: 100%; max-width: 320px; margin: 0 auto; }
+  .m-map-stage svg {
+    width: 100%; height: auto; display: block;
+    border-radius: 18px;
+    box-shadow:
+      0 1px 2px rgba(20,20,19,.04),
+      0 8px 20px -6px rgba(20,20,19,.16),
+      0 24px 48px -12px rgba(20,20,19,.18);
+  }
+  .m-map-cap {
+    text-align: center; font-size: 13px; color: var(--ink-3);
+    margin: 14px auto 0; line-height: 1.45; max-width: 44ch;
+  }
+.m-sea{fill:#FAF7F4;stroke:var(--line);stroke-width:1}
+.m-grat{stroke:#EBE2DA;stroke-width:.8}
+.m-land{fill:#EFE8E1;stroke:#D3C5B8;stroke-width:1;stroke-linejoin:round}
+.m-border{fill:none;stroke:#D8CABD;stroke-width:.9;stroke-linejoin:round;stroke-linecap:round}
+.m-ret{fill:none;stroke:#B4A79B;stroke-width:1.3;stroke-dasharray:2.5 5}
+.m-freight{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-dasharray:8 5;animation:frtflow 1.1s linear infinite}
+.m-head{fill:var(--accent)}
+.m-parcel-ret{fill:#8C8177}
+.m-parcel-frt{fill:var(--accent)}
+.m-shopper{fill:#fff;stroke:#39332E;stroke-width:1.9}
+.m-hub-ring{fill:none;stroke:var(--accent);stroke-width:2}
+.m-labbg{fill:#fff;stroke:var(--line);stroke-width:1}
+.m-labbg.hub{stroke:rgba(254,70,8,.5)}
+.m-lab{font-family:var(--sans);font-size:11.5px;font-weight:700;fill:#39332E}
+.m-city{font-family:var(--sans);font-size:9px;font-weight:700;fill:#8C8177;letter-spacing:.08em}
+.m-frt-lab{font-family:var(--sans);font-size:9.5px;font-weight:700;fill:var(--accent);letter-spacing:.1em}
+.m-legend{font-family:var(--sans);font-size:11px;fill:var(--ink-3)}
+  @keyframes frtflow { to { stroke-dashoffset: -13; } }
+  @media (min-width: 720px) { .m-map-stage { max-width: 480px; } }
+  @media (min-width: 1024px) { .m-map-stage { max-width: 600px; } }
+  @media (min-width: 1280px) { .m-map-stage { max-width: 640px; } }
+  @media (prefers-reduced-motion: reduce) { .m-freight { animation: none; } .m-parcel-ret, .m-parcel-frt { display: none; } }
 </style>
 </head>
 <body class="page-home-m">
@@ -1096,7 +1133,107 @@
   </section>
 
   <div class="m-hero-art">
-    <img src="logos/returns-portal.jpg" alt="Redo returns portal on a shopper's phone: exchange for the same item, a different style, or other products" loading="lazy" />
+    <div class="m-map-stage">
+<svg viewBox="0 0 620 617" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Europe with national borders: returns from Madrid, Barcelona, Paris, Milan, Rome, Vienna, Berlin and Stockholm consolidate at the Netherlands hub, then leave on bulk freight for the brand's US warehouse">
+<defs>
+  <marker id="frtHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+    <path d="M0,1 L9,5 L0,9 z" class="m-head"/>
+  </marker>
+  <g id="mbox"><rect x="-3.2" y="-3.2" width="6.4" height="6.4" rx="1.5"/></g>
+  <clipPath id="mapClip"><rect x="0" y="0" width="620" height="617" rx="18"/></clipPath>
+</defs>
+<rect class="m-sea" x="0" y="0" width="620" height="617" rx="18"/>
+<g clip-path="url(#mapClip)">
+<line class="m-grat" x1="-7.9" y1="617.1" x2="-7.9" y2="0.0"/>
+<line class="m-grat" x1="151.0" y1="617.1" x2="151.0" y2="0.0"/>
+<line class="m-grat" x1="310.0" y1="617.1" x2="310.0" y2="0.0"/>
+<line class="m-grat" x1="469.0" y1="617.1" x2="469.0" y2="0.0"/>
+<line class="m-grat" x1="0.0" y1="520.7" x2="620.0" y2="520.7"/>
+<line class="m-grat" x1="0.0" y1="295.0" x2="620.0" y2="295.0"/>
+<line class="m-grat" x1="0.0" y1="16.0" x2="620.0" y2="16.0"/>
+<path class="m-land" d="M224.9,598.5 L214.6,590.6 L209.1,584.6 L200.3,577.6 L192.0,578.0 L184.4,581.6 L173.3,579.6 L168.5,581.2 L169.8,573.6 L170.1,561.6 L166.9,553.5 L159.3,547.0 L161.4,534.1 L166.1,529.0 L169.0,517.6 L170.9,507.1 L170.1,497.7 L171.4,489.2 L169.0,481.3 L169.3,472.1 L166.4,465.6 L169.0,459.2 L162.5,457.0 L163.9,452.6 L174.9,449.4 L184.4,441.7 L198.7,445.0 L213.0,443.9 L230.5,445.0 L246.4,447.8 L262.3,446.7 L275.0,449.8 L281.5,448.7 L287.7,441.7 L290.1,424.0 L290.9,406.0 L293.3,399.2 L298.9,409.4 L292.5,392.4 L291.7,383.2 L281.4,378.6 L275.8,365.8 L273.4,360.0 L262.3,355.3 L241.6,348.2 L234.5,342.3 L236.9,333.9 L248.0,326.7 L267.1,329.1 L280.6,327.9 L285.4,319.5 L284.6,302.4 L290.1,302.9 L306.8,311.0 L317.2,308.0 L325.9,297.5 L333.8,292.5 L334.6,277.6 L342.6,270.0 L350.5,267.7 L363.4,260.4 L368.8,258.6 L373.6,252.2 L372.0,247.0 L375.2,244.5 L382.3,232.8 L383.1,221.0 L391.1,219.7 L395.8,213.0 L408.6,207.7 L418.9,206.4 L424.5,212.0 L430.8,202.4 L438.8,205.1 L445.1,194.3 L442.7,191.6 L451.5,182.1 L446.7,176.6 L451.5,171.1 L447.7,167.0 L440.4,160.1 L439.6,148.9 L439.6,136.2 L442.7,119.0 L446.7,104.4 L456.3,101.5 L462.6,95.6 L476.9,89.7 L477.7,100.0 L474.5,113.2 L472.2,119.0 L480.1,127.6 L476.9,139.0 L482.5,143.3 L478.5,153.1 L470.6,160.1 L467.4,164.2 L468.7,169.8 L478.5,180.7 L486.5,180.7 L497.6,187.6 L507.1,179.4 L519.8,183.5 L529.4,187.6 L537.0,193.5 L554.8,187.6 L572.3,176.6 L596.2,168.4 L610.5,182.1 L620.0,180.7 L620.0,367.0 L620.0,474.3 L612.1,464.6 L604.9,469.5 L590.6,459.2 L585.0,455.9 L567.5,430.6 L560.4,417.3 L564.4,408.3 L548.5,395.8 L532.6,401.5 L525.9,394.7 L518.3,398.1 L508.7,401.5 L505.5,412.8 L510.3,428.4 L524.6,443.9 L532.6,465.6 L546.9,476.4 L558.0,480.7 L567.5,491.3 L580.3,497.7 L594.6,506.1 L604.1,517.6 L596.2,522.8 L588.2,514.4 L583.4,510.3 L578.7,512.4 L572.3,524.8 L582.6,533.1 L581.8,543.3 L573.9,545.4 L565.9,562.6 L558.8,561.6 L562.8,551.5 L559.6,543.3 L567.5,537.2 L561.2,519.6 L546.9,507.1 L539.7,508.2 L532.6,504.0 L528.6,494.5 L518.3,494.5 L503.9,491.3 L488.1,470.0 L480.1,458.1 L473.7,445.0 L472.9,435.1 L464.2,432.9 L453.1,426.2 L440.4,431.7 L429.7,439.9 L422.9,446.1 L414.9,453.7 L403.8,454.8 L395.1,450.0 L386.3,449.4 L374.4,448.3 L359.3,457.0 L360.4,469.3 L360.9,480.7 L344.5,493.9 L329.1,497.7 L323.8,505.7 L313.2,522.8 L304.8,533.1 L306.8,545.4 L299.7,557.6 L297.3,564.6 L283.8,573.6 L275.0,586.6 L262.3,587.2 L240.1,587.2 L228.1,593.1Z"/>
+<path class="m-land" d="M219.1,293.5 L243.2,286.3 L254.4,280.1 L263.9,277.0 L279.8,277.0 L292.5,275.5 L298.1,275.5 L314.8,276.3 L326.2,266.2 L332.3,260.4 L322.7,259.8 L317.9,257.3 L326.7,249.6 L325.1,243.2 L337.8,232.0 L337.0,222.3 L315.6,223.6 L312.4,218.3 L311.6,205.1 L306.8,201.8 L308.4,188.9 L301.3,178.6 L292.5,174.7 L288.5,164.2 L284.6,153.1 L281.4,146.1 L276.6,136.2 L268.7,134.7 L260.7,133.3 L265.5,124.7 L270.3,123.3 L262.3,123.3 L270.3,113.2 L277.4,107.4 L281.7,92.7 L276.6,86.7 L263.9,86.7 L252.8,85.2 L246.4,80.8 L254.4,71.8 L261.5,58.1 L240.1,61.1 L230.5,59.6 L227.3,70.2 L224.9,80.8 L217.8,91.2 L222.6,100.0 L216.2,107.4 L221.0,116.1 L216.2,121.9 L221.0,130.5 L224.2,139.0 L227.3,147.5 L232.1,144.7 L233.7,137.6 L229.7,133.3 L236.9,134.7 L232.9,153.1 L236.1,168.4 L252.8,165.6 L261.5,167.0 L252.8,178.0 L253.6,188.9 L260.7,194.3 L262.3,207.7 L252.8,209.1 L241.6,209.1 L235.3,210.4 L244.0,221.0 L244.8,230.2 L240.1,239.3 L235.3,241.9 L226.5,248.3 L236.9,250.9 L248.0,253.5 L262.3,256.0 L270.3,259.8 L262.3,263.7 L252.8,264.9 L243.2,264.9 L243.2,272.5 L237.7,280.1 L229.7,285.1Z"/>
+<path class="m-land" d="M214.6,240.6 L208.3,239.3 L198.7,240.6 L189.2,245.7 L178.1,249.6 L168.5,254.7 L159.0,256.0 L144.7,250.9 L152.6,240.6 L160.6,228.9 L152.6,228.9 L157.4,217.0 L152.6,207.7 L157.4,202.4 L151.0,191.6 L163.7,183.5 L173.3,183.5 L170.1,172.5 L178.1,164.2 L192.4,153.1 L198.7,158.7 L206.7,157.3 L216.2,167.0 L222.6,175.3 L214.6,188.9 L213.0,202.4 L213.8,209.1 L212.2,221.0Z"/>
+<path class="m-land" d="M400.6,61.1 L392.7,47.3 L389.5,28.7 L399.0,16.0 L392.7,0.0 L620.0,0.0 L604.1,16.0 L589.8,28.7 L600.9,36.5 L593.0,50.4 L580.3,65.7 L570.7,83.8 L575.5,95.6 L572.3,107.4 L564.4,127.6 L543.7,130.5 L538.1,141.8 L535.7,153.1 L516.7,152.5 L510.3,134.7 L513.5,127.6 L508.7,110.3 L505.5,101.5 L499.2,95.6 L500.8,86.7 L491.2,80.8 L497.6,71.8 L491.2,68.7 L488.1,59.6 L487.3,44.6 L478.5,19.2 L462.6,47.3 L421.3,76.3Z"/>
+<path class="m-land" d="M216.2,605.3 L225.7,603.4 L248.0,617.1 L275.0,619.0 L310.0,603.4 L329.1,591.6 L357.7,585.6 L397.4,583.6 L437.2,581.6 L465.8,575.6 L476.9,585.6 L484.9,609.3 L486.5,611.2 L486.5,630.6 L206.7,630.6 L209.8,620.9Z"/>
+<path class="m-land" d="M507.6,565.6 L527.8,561.2 L550.1,556.5 L558.5,559.6 L550.1,588.6 L540.5,587.6 L508.7,570.0Z"/>
+<path class="m-land" d="M440.4,497.2 L461.8,496.6 L464.2,510.3 L463.4,537.2 L450.7,543.3 L443.5,522.8Z"/>
+<path class="m-land" d="M446.4,463.1 L460.2,463.1 L461.8,479.6 L457.8,491.7 L448.3,487.1 L449.1,472.1Z"/>
+<path class="m-border" d="M192.0,578.0 L190.8,569.6 L198.7,557.6 L193.2,551.5 L198.7,539.2 L190.0,527.9 L200.3,515.5 L201.1,499.8 L211.4,487.1 L205.9,480.7 L195.5,481.7 L179.6,481.7 L169.0,481.3"/>
+<path class="m-border" d="M281.5,448.7 L288.5,455.9 L298.1,458.1 L310.0,463.5 L320.3,463.5 L333.1,467.8 L337.3,467.8 L345.0,471.0 L360.4,469.3"/>
+<path class="m-border" d="M350.5,267.7 L359.3,275.5 L368.8,276.3 L376.8,282.6 L387.1,291.3 L397.4,296.2 L402.5,306.3"/>
+<path class="m-border" d="M402.5,306.3 L401.4,297.5 L407.5,290.8"/>
+<path class="m-border" d="M407.5,290.8 L413.3,299.9 L411.1,308.0"/>
+<path class="m-border" d="M402.5,306.3 L407.0,307.8 L411.1,308.0"/>
+<path class="m-border" d="M407.5,290.8 L410.9,282.6 L405.7,276.3"/>
+<path class="m-border" d="M363.4,260.4 L376.8,259.8 L381.5,257.8 L390.3,258.1 L402.2,266.2 L405.7,276.3"/>
+<path class="m-border" d="M405.7,276.3 L407.8,264.9 L408.6,248.3 L417.3,244.5 L422.1,234.1 L421.3,222.3 L424.5,212.0"/>
+<path class="m-border" d="M411.1,308.0 L421.3,314.6 L430.8,318.3 L440.4,320.2 L434.0,329.1 L430.8,336.3 L430.0,345.8 L430.7,353.2"/>
+<path class="m-border" d="M430.7,353.2 L421.3,355.3 L418.1,367.0 L407.0,376.3 L404.9,386.7 L407.8,383.2 L418.1,380.9 L418.1,388.9 L421.9,391.7"/>
+<path class="m-border" d="M421.9,391.7 L418.1,395.8 L422.9,401.5 L417.3,409.4 L414.9,415.0 L419.7,426.2 L421.3,430.6 L429.7,439.9"/>
+<path class="m-border" d="M430.7,353.2 L440.4,352.9 L446.7,352.9 L453.1,351.0 L462.6,354.6"/>
+<path class="m-border" d="M462.6,354.6 L467.4,365.8 L472.2,369.3 L476.1,370.5"/>
+<path class="m-border" d="M476.1,370.5 L467.4,380.9 L456.3,385.5 L443.5,379.8 L437.2,387.8 L421.9,391.7"/>
+<path class="m-border" d="M462.6,354.6 L472.2,357.6 L484.9,357.6 L503.9,352.9 L513.5,350.6 L516.7,355.3 L517.5,343.5 L523.0,333.9 L529.9,329.6"/>
+<path class="m-border" d="M476.1,370.5 L484.9,370.5 L492.8,367.0 L503.9,369.3 L513.5,375.1 L528.1,378.4"/>
+<path class="m-border" d="M528.1,378.4 L526.2,385.5 L524.6,390.5 L525.9,394.7"/>
+<path class="m-border" d="M528.1,378.4 L540.5,380.2 L548.5,375.8 L564.4,374.0 L565.9,370.0"/>
+<path class="m-border" d="M565.9,370.0 L558.8,385.5 L548.5,395.8 L532.6,401.5 L525.9,394.7"/>
+<path class="m-border" d="M447.7,167.0 L454.7,167.8 L460.2,168.9 L468.7,169.8"/>
+<path class="m-border" d="M529.9,329.6 L523.0,320.7 L510.3,309.7 L507.1,301.2 L502.4,287.5 L515.1,285.1 L524.6,277.6 L538.9,272.5 L545.6,273.3"/>
+<path class="m-border" d="M545.6,273.3 L544.5,257.3 L542.1,244.5 L534.9,222.3 L538.9,210.4 L537.0,193.5"/>
+<path class="m-border" d="M529.9,329.6 L542.1,329.1 L554.8,320.7 L570.7,325.5 L579.5,328.6"/>
+<path class="m-border" d="M545.6,273.3 L554.8,275.0 L567.5,278.8 L573.9,292.5 L580.3,287.5 L591.4,287.5 L600.9,297.5 L609.7,307.0"/>
+<path class="m-border" d="M579.5,328.6 L588.2,323.1 L594.6,319.5 L602.5,312.2 L609.7,307.0"/>
+<path class="m-border" d="M609.7,307.0 L620.0,309.7"/>
+<path class="m-border" d="M579.5,328.6 L572.3,350.6 L571.5,367.0 L565.9,370.0"/>
+<path class="m-border" d="M565.9,370.0 L580.3,391.2 L610.5,392.4 L620.0,399.2"/>
+<path class="m-border" d="M620.0,410.5 L605.7,410.5 L588.2,409.4 L572.3,408.3 L564.4,408.3 L560.4,417.3 L567.5,430.6 L585.0,455.9 L590.6,459.2"/>
+<path class="m-border" d="M487.3,44.6 L508.7,19.2 L508.7,0.0"/>
+<path class="m-ret" d="M251.2,511.9 Q282.2,362.2 382.3,246.5"/>
+<path class="m-ret" d="M344.5,491.5 Q331.5,364.1 382.3,246.5"/>
+<path class="m-ret" d="M347.4,322.9 Q354.9,280.2 382.3,246.5"/>
+<path class="m-ret" d="M456.1,402.4 Q439.5,314.9 382.3,246.5"/>
+<path class="m-ret" d="M508.7,480.7 Q475.9,347.2 382.3,246.5"/>
+<path class="m-ret" d="M570.2,338.5 Q488.2,268.1 382.3,246.5"/>
+<path class="m-ret" d="M523.0,231.0 Q450.6,220.5 382.3,246.5"/>
+<path class="m-ret" d="M597.3,37.1 Q462.6,113.9 382.3,246.5"/>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="0.0s" repeatCount="indefinite" path="M251.2,511.9 Q282.2,362.2 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="0.0s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="0.33s" repeatCount="indefinite" path="M344.5,491.5 Q331.5,364.1 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="0.33s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="0.66s" repeatCount="indefinite" path="M347.4,322.9 Q354.9,280.2 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="0.66s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="0.99s" repeatCount="indefinite" path="M456.1,402.4 Q439.5,314.9 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="0.99s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="1.32s" repeatCount="indefinite" path="M508.7,480.7 Q475.9,347.2 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="1.32s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="1.65s" repeatCount="indefinite" path="M570.2,338.5 Q488.2,268.1 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="1.65s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="1.98s" repeatCount="indefinite" path="M523.0,231.0 Q450.6,220.5 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="1.98s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-ret"><animateMotion dur="2.8s" begin="2.31s" repeatCount="indefinite" path="M597.3,37.1 Q462.6,113.9 382.3,246.5"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.14;.8;1" dur="2.8s" begin="2.31s" repeatCount="indefinite"/></use>
+<path class="m-freight" d="M382.3,246.5 Q205.3,207.6 31.8,259.8" marker-end="url(#frtHead)"/>
+<use href="#mbox" class="m-parcel-frt"><animateMotion dur="4.2s" begin="0.0s" repeatCount="indefinite" path="M382.3,246.5 Q205.3,207.6 31.8,259.8"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.88;1" dur="4.2s" begin="0.0s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-frt"><animateMotion dur="4.2s" begin="1.1s" repeatCount="indefinite" path="M382.3,246.5 Q205.3,207.6 31.8,259.8"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.88;1" dur="4.2s" begin="1.1s" repeatCount="indefinite"/></use>
+<use href="#mbox" class="m-parcel-frt"><animateMotion dur="4.2s" begin="2.2s" repeatCount="indefinite" path="M382.3,246.5 Q205.3,207.6 31.8,259.8"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.08;.88;1" dur="4.2s" begin="2.2s" repeatCount="indefinite"/></use>
+<circle class="m-shopper" cx="251.2" cy="511.9" r="3.8"/>
+<circle class="m-shopper" cx="344.5" cy="491.5" r="3.8"/>
+<circle class="m-shopper" cx="347.4" cy="322.9" r="3.8"/>
+<circle class="m-shopper" cx="456.1" cy="402.4" r="3.8"/>
+<circle class="m-shopper" cx="508.7" cy="480.7" r="3.8"/>
+<circle class="m-shopper" cx="570.2" cy="338.5" r="3.8"/>
+<circle class="m-shopper" cx="523.0" cy="231.0" r="3.8"/>
+<circle class="m-shopper" cx="597.3" cy="37.1" r="3.8"/>
+<g transform="translate(382.3,246.5)"><circle class="m-hub-ring" r="13"><animate attributeName="r" values="10;24" dur="2.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0" dur="2.8s" repeatCount="indefinite"/></circle><circle r="10.5" fill="var(--accent)" stroke="#fff" stroke-width="2.5"/><path d="M-4.6,-0.8 L0,-5.4 L4.6,-0.8 L4.6,4.6 L-4.6,4.6 Z" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/></g>
+</g>
+<text class="m-city" x="251.2" y="529.9" text-anchor="middle">MADRID</text>
+<text class="m-city" x="374.5" y="504.5" text-anchor="middle">BARCELONA</text>
+<text class="m-city" x="321.4" y="334.9" text-anchor="middle">PARIS</text>
+<text class="m-city" x="432.1" y="407.4" text-anchor="middle">MILAN</text>
+<text class="m-city" x="532.7" y="488.7" text-anchor="middle">ROME</text>
+<text class="m-city" x="570.2" y="356.5" text-anchor="middle">VIENNA</text>
+<text class="m-city" x="549.0" y="236.0" text-anchor="middle">BERLIN</text>
+<text class="m-city" x="597.3" y="23.1" text-anchor="middle">STOCKHOLM</text>
+<rect class="m-labbg hub" x="334.3" y="203.5" width="96" height="22" rx="7"/><text class="m-lab" x="382.3" y="219.1" text-anchor="middle">🇳🇱  NL HUB</text>
+<rect class="m-labbg" x="36.8" y="276.8" width="122" height="22" rx="7"/><text class="m-lab" x="97.8" y="292.4" text-anchor="middle">🇺🇸  TO THE US</text>
+<text class="m-frt-lab" x="180.2" y="216.4" text-anchor="middle">BULK FREIGHT · CLEARED ONCE</text>
+<g transform="translate(20,595.1)"><circle class="m-shopper" cx="6" cy="-4.5" r="3.8"/><text class="m-legend" x="18" y="0">Shopper drops off locally</text><line class="m-ret" x1="176" y1="-4.5" x2="200" y2="-4.5"/><text class="m-legend" x="208" y="0">Routed to the nearest hub</text></g>
+</svg>
+    </div>
   </div>
 
   <section class="m-integrations">

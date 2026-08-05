@@ -261,6 +261,7 @@
     display: flex; align-items: center; justify-content: center;
   }
   .dd-list li .ck svg { width: 11px; height: 11px; color: var(--accent); }
+  .dd-note { font-size: 13px; color: var(--ink-3); margin-top: 16px; }
   .dd-sub {
     font-family: var(--font-sans);
     font-size: clamp(22px, 5.5vw, 30px);
@@ -1019,32 +1020,14 @@
             <div class="cd-row"><span class="k">Country of origin</span><span class="v">Portugal</span></div>
             <div class="cd-row"><span class="k">Duties &amp; taxes</span><span class="v">Refunded in full</span></div>
           </div>
-          <div class="brokers">
-            <div class="bk-head">Cleared with licensed customs brokers in</div>
-            <div class="bk-chips">
-              <span class="bk-chip">🇺🇸 United States</span>
-              <span class="bk-chip">🇪🇺 European Union</span>
-              <span class="bk-chip">🇬🇧 United Kingdom</span>
-              <span class="bk-chip">🇨🇦 Canada</span>
-              <span class="bk-chip">🇦🇺 Australia</span>
-            </div>
-          </div>
         </div>
         <div class="dd-body">
           <ul class="dd-list">
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>The customs forms, done for you.</b> Every item gets the right classification and invoice, automatically.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>No duty owed on returns.</b> Returned goods legally re-enter tax free. Our licensed brokers file the paperwork that makes that true.</li>
-            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Your customer gets all their money back.</b> The product price and the import duties they paid. Most brands miss the second part, and it kills repeat purchases.</li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Forms filed for you.</b></li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Cleared duty-free, both directions.</b></li>
+            <li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><b>Your customer gets duties back too.</b></li>
           </ul>
-          <!-- [CONFIRM] legal phrasing on the EU claims before paid traffic -->
-          <div class="brokers" style="margin-top: 18px;">
-            <div class="bk-head">EU rules handled for you</div>
-            <div class="bk-chips">
-              <span class="bk-chip">🇪🇺 Right of Withdrawal</span>
-              <span class="bk-chip">14-day refund clocks</span>
-              <span class="bk-chip">Destruction ban</span>
-            </div>
-          </div>
+          <p class="dd-note">Licensed brokers in the US, EU, UK, CA and AU.</p>
         </div>
       </div>
     </div>

@@ -598,6 +598,15 @@
   .sv-row { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 8px; }
   .sv-row label { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
   .sv-row .v { font-weight: 600; font-size: 14px; color: var(--ink); }
+  .sv-input {
+    border: 0; border-bottom: 1px solid var(--line);
+    background: transparent;
+    font: inherit; font-weight: 600; font-size: 14px; color: var(--ink);
+    text-align: right; width: 110px; padding: 0 0 2px;
+    border-radius: 0;
+    -webkit-appearance: none; appearance: none;
+  }
+  .sv-input:focus { outline: none; border-bottom-color: var(--accent); }
   input[type=range] {
     -webkit-appearance: none; appearance: none;
     width: 100%; height: 6px; border-radius: 999px;
@@ -997,7 +1006,7 @@
           <div class="num" id="svNum">$170,000</div>
           <div class="nl">saved per year</div>
         </div>
-        <div class="sv-row"><label for="svOrders">International orders a year</label><span class="v" id="svOrdVal">20,000</span></div>
+        <div class="sv-row"><label for="svOrdVal">International orders a year</label><input class="v sv-input" id="svOrdVal" type="text" inputmode="numeric" autocomplete="off" value="20,000" aria-label="International orders a year" /></div>
         <input type="range" id="svOrders" min="0" max="1000" step="1" value="575" aria-label="International orders a year" />
         <div class="sv-row"><label for="svRr">Return rate</label><span class="v" id="svRrVal">25%</span></div>
         <input type="range" id="svRr" min="5" max="45" step="1" value="25" aria-label="Return rate" />
@@ -1600,16 +1609,42 @@
       var i = Math.round((t - 500) / 500 * (ORD_STOPS.length - 1));
       return ORD_STOPS[i];
     }
+    var manualOrders = null;
+    function sliderFromOrders(o){
+      if (o <= ORD_MID) return Math.round(o / ORD_MID * 500);
+      var n = ORD_STOPS.length - 1, i;
+      for (i = n; i >= 0; i--) if (o >= ORD_STOPS[i]) break;
+      var lo = ORD_STOPS[i], hi = ORD_STOPS[Math.min(i + 1, n)];
+      var frac = hi > lo ? Math.min((o - lo) / (hi - lo), 1) : 0;
+      return Math.round(500 + (i + frac) / n * 500);
+    }
     var target = 0, shown = 0, raf = 0, ready = false;
     function set(v){ target = v; if (reduce || !ready) { shown = v; num.textContent = fmt(v); return; } if (!raf) raf = requestAnimationFrame(stepf); }
     function stepf(){ var d = target - shown; if (Math.abs(d) < Math.max(300, target * 0.002)) { shown = target; num.textContent = fmt(shown); raf = 0; return; } shown += d * 0.2; num.textContent = fmt(shown); raf = requestAnimationFrame(stepf); }
+    function currentOrders(){ return manualOrders != null ? manualOrders : ordersFromSlider(+orders.value); }
     function calc(){
-      var o = ordersFromSlider(+orders.value), rr = +rrEl.value / 100,
+      var o = currentOrders(), rr = +rrEl.value / 100,
           total = o * rr * RET_SAVED;
-      ordVal.textContent = o.toLocaleString('en-US') + (o >= ORD_MAX ? '+' : ''); rrVal.textContent = (+rrEl.value) + '%';
+      if (document.activeElement !== ordVal) {
+        ordVal.value = o.toLocaleString('en-US') + (manualOrders == null && o >= ORD_MAX ? '+' : '');
+      }
+      rrVal.textContent = (+rrEl.value) + '%';
       set(total); fill(orders); fill(rrEl);
     }
-    [orders, rrEl].forEach(function(el){ el.addEventListener('input', function(){ ready = true; calc(); }); });
+    orders.addEventListener('input', function(){ manualOrders = null; ready = true; calc(); });
+    rrEl.addEventListener('input', function(){ ready = true; calc(); });
+    // Type an exact number: math uses it verbatim, the slider snaps alongside.
+    ordVal.addEventListener('input', function(){
+      var digits = ordVal.value.replace(/[^0-9]/g, '');
+      if (digits === '') return;
+      manualOrders = Math.min(parseInt(digits, 10), 99000000);
+      orders.value = sliderFromOrders(manualOrders);
+      ready = true; calc();
+    });
+    ordVal.addEventListener('blur', function(){
+      var o = currentOrders();
+      ordVal.value = o.toLocaleString('en-US') + (manualOrders == null && o >= ORD_MAX ? '+' : '');
+    });
     calc();
     if ('IntersectionObserver' in window && !reduce) {
       var io = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { shown = 0; ready = true; var t = target; target = 0; set(t); io.unobserve(x.target); } }); }, { threshold: .5 });

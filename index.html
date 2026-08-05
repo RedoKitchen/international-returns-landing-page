@@ -191,10 +191,11 @@
   .pillar-pills-wrap {
     position: sticky; top: 64px; z-index: 50;
     background: var(--bg);
-    border-bottom: 1px solid var(--line-2);
-    margin-top: 44px;
-    transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s;
+    border-bottom: 1px solid transparent;
+    margin-top: 20px;
+    transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .25s, border-color .2s;
   }
+  .pillar-pills-wrap.stuck { border-bottom-color: var(--line-2); }
   .pillar-pills-wrap.hide { transform: translateY(-140%); opacity: 0; pointer-events: none; }
   .pillar-pills {
     display: flex; gap: 7px;
@@ -545,8 +546,8 @@
     max-width: 600px;
     line-height: 1.55;
   }
-  .m-cta .btn-primary { background: #fff; color: var(--ink); border-color: #fff; }
-  .m-cta .btn-primary:hover { background: var(--gray-3); }
+  .m-cta .btn-primary { background: transparent; color: #fff; border: 1.5px solid #fff; }
+  .m-cta .btn-primary:hover { background: rgba(255,255,255,.14); }
 
   /* ===== FAQ accordion (Loop-style) ===== */
   .faq { padding: 48px 20px 64px; }
@@ -1353,10 +1354,19 @@
     function vis(){
       var atBook = book && book.getBoundingClientRect().top < window.innerHeight * 0.6;
       pnav.classList.toggle('hide', atBook);
+      pnav.classList.toggle('stuck', pnav.getBoundingClientRect().top <= 65 && !atBook);
     }
     vis(); addEventListener('scroll', vis, { passive: true }); addEventListener('resize', vis, { passive: true });
     if ('IntersectionObserver' in window) {
-      var spy = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-spy') === x.target.id); }); } }); }, { rootMargin: '-40% 0px -55% 0px' });
+      var track = pnav.querySelector('.pillar-pills');
+      var spy = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) {
+        links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-spy') === x.target.id); });
+        // Keep the active pill in view in the horizontally scrollable bar
+        var active = pnav.querySelector('.p-pill.on');
+        if (active && track && track.scrollWidth > track.clientWidth) {
+          track.scrollTo({ left: active.offsetLeft - (track.clientWidth - active.offsetWidth) / 2, behavior: 'smooth' });
+        }
+      } }); }, { rootMargin: '-40% 0px -55% 0px' });
       ['warehouses', 'shipping', 'customs', 'portal'].forEach(function(id){ var s = document.getElementById(id); if (s) spy.observe(s); });
     }
   })();

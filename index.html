@@ -222,21 +222,6 @@
     color: var(--ink-3); margin: 0 0 8px;
   }
   .m-card p b, .m-card p strong { color: var(--ink); font-weight: 600; }
-  .m-card .pbul { list-style: none; padding: 0; margin: 0 0 10px; display: flex; flex-direction: column; gap: 7px; }
-  .m-card .pbul li {
-    position: relative; padding-left: 18px;
-    font-size: 14px; line-height: 1.45; color: var(--ink-2); font-weight: 500;
-  }
-  .m-card .pbul li::before {
-    content: ""; position: absolute; left: 2px; top: 7px;
-    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-  }
-  .m-card-link { font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; }
-  .m-card-link::after { content: " →"; }
-  .m-card-tag {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--accent); margin-top: 4px;
-  }
   @media (min-width: 720px) {
     .m-card-list { display: grid; grid-template-columns: repeat(2, 1fr); max-width: 1080px; }
   }
@@ -881,6 +866,32 @@
     <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
   </section>
 
+  <!-- Pillar cards: what you get, in one line each -->
+  <section aria-label="What you get" style="padding: 48px 0 8px;">
+    <div class="m-card-list cols-4">
+      <a class="m-card reveal" href="#warehouses">
+        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg></div>
+        <h3>Local return hubs</h3>
+        <p>Shoppers return in-country at hubs in the US, CA, UK, EU and AU.</p>
+      </a>
+      <a class="m-card reveal" href="#shipping">
+        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></div>
+        <h3>Ship anywhere</h3>
+        <p>Our carrier rates in 200+ countries. One integration.</p>
+      </a>
+      <a class="m-card reveal" href="#customs">
+        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Customs handled</h3>
+        <p>Paperwork filed for you. Nothing gets stuck at the border.</p>
+      </a>
+      <a class="m-card reveal" href="#portal">
+        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg></div>
+        <h3>One localized portal</h3>
+        <p>Every language, currency and VAT rule, automatically.</p>
+      </a>
+    </div>
+  </section>
+
   <!-- ===================== WHY IT MATTERS (stats board) ===================== -->
   <section id="problem" style="padding: 48px 20px 56px;">
     <div class="m-section-head">
@@ -906,52 +917,6 @@
       </div>
     </div>
     <p class="m-stats-note">Survey and return-cost figures illustrative, typical apparel-weight parcels.<br />Exact lane math on the call.</p>
-  </section>
-
-  <!-- Pillar cards -->
-  <section aria-label="What you get" style="padding: 8px 0 40px;">
-    <div class="m-card-list cols-4">
-      <a class="m-card reveal" href="#warehouses">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg></div>
-        <h3>Return warehouses</h3>
-        <ul class="pbul">
-          <li>In-country hubs in 5 regions</li>
-          <li>Local drop-off, no cross-border freight</li>
-          <li>Refunded in 3&ndash;4 days</li>
-        </ul>
-        <span class="m-card-link">See the network</span>
-      </a>
-      <a class="m-card reveal" href="#shipping">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></div>
-        <h3>Ship anything, anywhere</h3>
-        <ul class="pbul">
-          <li>Labels in 200+ countries</li>
-          <li>Every carrier, one integration</li>
-          <li>Best-priced label on every lane</li>
-        </ul>
-        <span class="m-card-link">See the carriers</span>
-      </a>
-      <a class="m-card reveal" href="#customs">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Expert customs clearance</h3>
-        <ul class="pbul">
-          <li>HS codes classified for every item</li>
-          <li>Invoices filed, cleared duty-free</li>
-          <li>Duties and taxes refunded in full</li>
-        </ul>
-        <span class="m-card-link">See how it clears</span>
-      </a>
-      <a class="m-card reveal" href="#portal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg></div>
-        <h3>A localized return portal</h3>
-        <ul class="pbul">
-          <li>Any language and currency</li>
-          <li>Any country&rsquo;s VAT and taxes</li>
-          <li>One portal to run</li>
-        </ul>
-        <span class="m-card-link">See the portal</span>
-      </a>
-    </div>
   </section>
 
   <!-- ===================== STICKY PILLAR JUMP-NAV ===================== -->

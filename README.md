@@ -6,8 +6,7 @@ The Shipping free-trial landing page design ([Shipping-Free-Trial-Landing-Page](
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Landing page: hero, integrations, brand marquee, why-cards, feature carousel (the four IR pillars + exchanges + forward fulfillment), stats, demo form. |
-| `free-trial.html` | Dedicated demo-request page (side rail with the business case + form). |
+| `index.html` | The whole page (V4 structure in the shipping design system): rotating hero, pillar cards, pain cards, EU hub map, carrier grid, customs mock, localized-portal demo, savings calculator, buyback band, demo form. |
 | `server.js` | Express server. Serves the site under `/international-returns-free-trial/` and proxies `api/trial-signup` to HubSpot behind the defense stack. |
 
 ## The form (demo request, not account signup)

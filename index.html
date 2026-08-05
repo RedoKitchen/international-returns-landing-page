@@ -187,48 +187,6 @@
     margin-right: auto;
   }
 
-  /* ===== Cards (shipping m-card system, used for pillars + pains) ===== */
-  .m-card-list {
-    display: flex; flex-direction: column; gap: 14px;
-    max-width: 560px; margin: 0 auto;
-    padding: 0 20px;
-  }
-  .m-card {
-    background: var(--bg);
-    border: 1px solid var(--line-2);
-    border-radius: var(--r-md);
-    padding: 20px;
-    display: block;
-    text-decoration: none;
-  }
-  a.m-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-  a.m-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -18px rgba(20,20,19,.25); }
-  .m-card-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--gray-2);
-    display: grid; place-items: center;
-    color: var(--accent);
-    margin-bottom: 14px;
-  }
-  .m-card-icon svg { width: 20px; height: 20px; }
-  .m-card h3 {
-    font-size: 16px; font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 6px; color: var(--ink);
-  }
-  .m-card p {
-    font-size: 14px; line-height: 1.5;
-    color: var(--ink-3); margin: 0 0 8px;
-  }
-  .m-card p b, .m-card p strong { color: var(--ink); font-weight: 600; }
-  @media (min-width: 720px) {
-    .m-card-list { display: grid; grid-template-columns: repeat(2, 1fr); max-width: 1080px; }
-  }
-  @media (min-width: 1024px) {
-    .m-card-list.cols-4 { grid-template-columns: repeat(4, 1fr); }
-  }
-
   /* ===== Sticky pillar jump-nav ===== */
   .pillarnav {
     position: sticky; top: 64px; z-index: 50;
@@ -866,59 +824,6 @@
     <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
   </section>
 
-  <!-- Pillar cards: what you get, in one line each -->
-  <section aria-label="What you get" style="padding: 48px 0 8px;">
-    <div class="m-card-list cols-4">
-      <a class="m-card reveal" href="#warehouses">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg></div>
-        <h3>Local return hubs</h3>
-        <p>Shoppers return in-country at hubs in the US, CA, UK, EU and AU.</p>
-      </a>
-      <a class="m-card reveal" href="#shipping">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></div>
-        <h3>Ship anywhere</h3>
-        <p>Our carrier rates in 200+ countries. One integration.</p>
-      </a>
-      <a class="m-card reveal" href="#customs">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h3>Customs handled</h3>
-        <p>Paperwork filed for you. Nothing gets stuck at the border.</p>
-      </a>
-      <a class="m-card reveal" href="#portal">
-        <div class="m-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg></div>
-        <h3>One localized portal</h3>
-        <p>Every language, currency and VAT rule, automatically.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- ===================== WHY IT MATTERS (stats board) ===================== -->
-  <section id="problem" style="padding: 48px 20px 56px;">
-    <div class="m-section-head">
-      <span class="kicker">Why it matters</span>
-      <h2>International returns, by the numbers.</h2>
-    </div>
-    <div class="m-stats-board">
-      <div class="m-stat">
-        <div class="m-stat-val">80<span class="ital">%</span></div>
-        <div class="m-stat-lbl">Read the return policy before buying</div>
-      </div>
-      <div class="m-stat">
-        <div class="m-stat-val">70<span class="ital">%</span></div>
-        <div class="m-stat-lbl">Cheaper per return kept in market</div>
-      </div>
-      <div class="m-stat">
-        <div class="m-stat-val">3<span class="ital">&ndash;4</span></div>
-        <div class="m-stat-lbl">Days to refund, not 10&ndash;14</div>
-      </div>
-      <div class="m-stat">
-        <div class="m-stat-val">4<span class="ital">%</span></div>
-        <div class="m-stat-lbl">Of turnover in EU penalties</div>
-      </div>
-    </div>
-    <p class="m-stats-note">Survey and return-cost figures illustrative, typical apparel-weight parcels.<br />Exact lane math on the call.</p>
-  </section>
-
   <!-- ===================== STICKY PILLAR JUMP-NAV ===================== -->
   <div class="pillarnav" id="pillarnav">
     <div class="inner">
@@ -1196,6 +1101,33 @@
     </div>
   </section>
 
+  <!-- ===================== WHY IT MATTERS (stats board) ===================== -->
+  <section id="problem" style="padding: 48px 20px 56px;">
+    <div class="m-section-head">
+      <span class="kicker">Why it matters</span>
+      <h2>International returns, by the numbers.</h2>
+    </div>
+    <div class="m-stats-board">
+      <div class="m-stat">
+        <div class="m-stat-val">80<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Read the return policy before buying</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">70<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Cheaper per return kept in market</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">3<span class="ital">&ndash;4</span></div>
+        <div class="m-stat-lbl">Days to refund, not 10&ndash;14</div>
+      </div>
+      <div class="m-stat">
+        <div class="m-stat-val">4<span class="ital">%</span></div>
+        <div class="m-stat-lbl">Of turnover in EU penalties</div>
+      </div>
+    </div>
+    <p class="m-stats-note">Survey and return-cost figures illustrative, typical apparel-weight parcels.<br />Exact lane math on the call.</p>
+  </section>
+
   <!-- ===================== FAQ (Loop-style) ===================== -->
   <!-- [CONFIRM] the label-policy and buyback answers with the team before launch -->
   <section class="faq" id="faq">
@@ -1411,17 +1343,13 @@
   if ('IntersectionObserver' in window && !reduce) {
     var io2 = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add('in'); io2.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
     document.querySelectorAll('.reveal').forEach(function(el){ io2.observe(el); });
-    document.querySelectorAll('.m-card-list').forEach(function(grid){
-      var i = 0;
-      Array.prototype.forEach.call(grid.children, function(k){ if (k.classList && k.classList.contains('reveal')) { k.style.transitionDelay = (i * 80) + 'ms'; i++; } });
-    });
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
 
   /* ---- sticky pillar jump-nav + scroll-spy ---- */
   (function(){
-    var pnav = document.getElementById('pillarnav'), pillars = document.getElementById('problem'), book = document.getElementById('book'); if (!pnav || !pillars) return;
+    var pnav = document.getElementById('pillarnav'), pillars = document.getElementById('warehouses'), book = document.getElementById('book'); if (!pnav || !pillars) return;
     var links = pnav.querySelectorAll('a[data-spy]');
     function vis(){
       var pastPillars = pillars.getBoundingClientRect().top < 60;

@@ -586,26 +586,42 @@
   }
 
   /* ===== Comparison + savings ===== */
-  .cmp2 { display: grid; gap: 13px; margin-top: 30px; }
-  @media (min-width: 680px) { .cmp2 { grid-template-columns: 1fr 1fr; } }
-  .cmpcard { border-radius: var(--r-md); padding: 22px 20px; border: 1px solid var(--line-2); background: var(--gray-2); }
-  .cmpcard .ct {
-    display: flex; align-items: center; gap: 9px;
-    font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
-    margin-bottom: 14px; color: var(--ink-3);
+  .cmptable {
+    max-width: 640px;
+    margin: 24px auto 0;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-lg);
+    padding: 6px 20px 10px;
+    box-shadow: 0 18px 48px -28px rgba(20,20,19,.15);
   }
-  .cmpcard.new { background: var(--bg); border-color: rgba(255,68,4,.4); box-shadow: 0 18px 44px -28px rgba(20,20,19,.18); }
-  .cmpcard.new .ct { color: var(--accent); }
-  .cmprow {
-    display: flex; justify-content: space-between; gap: 14px;
-    padding: 10px 0;
+  .cmp-head, .cmp-r {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .cmp-head {
+    padding: 14px 0 10px;
+    border-bottom: 1.5px solid var(--line);
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .cmp-head .old { color: var(--ink-3); text-align: right; }
+  .cmp-head .new { color: var(--accent); text-align: right; }
+  .cmp-r {
+    padding: 11px 0;
     border-bottom: 1px solid var(--line-2);
-    font-size: 14.5px;
+    font-size: 13px;
   }
-  .cmprow:last-child { border-bottom: 0; }
-  .cmprow .k { color: var(--ink-2); }
-  .cmprow .v { font-weight: 600; color: var(--ink-3); text-align: right; }
-  .cmpcard.new .cmprow .v { color: var(--accent); }
+  .cmp-r:last-child { border-bottom: 0; }
+  .cmp-r .k { color: var(--ink-2); }
+  .cmp-r .o { color: var(--ink-3); text-align: right; }
+  .cmp-r .n { color: var(--accent); font-weight: 600; text-align: right; }
+  @media (min-width: 680px) {
+    .cmp-r { font-size: 14.5px; }
+    .cmp-head { font-size: 11.5px; }
+  }
   .savings {
     margin-top: 24px;
     background: var(--bg);
@@ -1053,23 +1069,17 @@
         <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get my exact number</a>
         <div class="sv-foot">Rough estimate: $34 saved on every return kept in market, plus $21.50 on every order you also fulfill from the hub. Exact figure on the call.</div>
       </div>
-      <div class="cmp2">
-        <div class="cmpcard reveal">
-          <div class="ct"><span>✕</span> Run it across the border</div>
-          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$49</span></div>
-          <div class="cmprow"><span class="k">Time to refund</span><span class="v">10&ndash;14 days</span></div>
-          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$34 an order</span></div>
-          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Rarely refunded</span></div>
-          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Dead stock at home</span></div>
+      <div class="cmptable reveal">
+        <div class="cmp-head">
+          <span></span>
+          <span class="old">&#10005; Across the border</span>
+          <span class="new">&#10003; With Redo</span>
         </div>
-        <div class="cmpcard new reveal">
-          <div class="ct"><span>✓</span> Run it in market with Redo</div>
-          <div class="cmprow"><span class="k">Cost per return</span><span class="v">~$15</span></div>
-          <div class="cmprow"><span class="k">Time to refund</span><span class="v">3&ndash;4 days</span></div>
-          <div class="cmprow"><span class="k">Cost to deliver</span><span class="v">~$12.50 an order</span></div>
-          <div class="cmprow"><span class="k">Duties and taxes</span><span class="v">Refunded in full</span></div>
-          <div class="cmprow"><span class="k">Returned stock</span><span class="v">Resold in market</span></div>
-        </div>
+        <div class="cmp-r"><span class="k">Cost per return</span><span class="o">~$49</span><span class="n">~$15</span></div>
+        <div class="cmp-r"><span class="k">Time to refund</span><span class="o">10&ndash;14 days</span><span class="n">3&ndash;4 days</span></div>
+        <div class="cmp-r"><span class="k">Cost to deliver</span><span class="o">~$34/order</span><span class="n">~$12.50/order</span></div>
+        <div class="cmp-r"><span class="k">Duties &amp; taxes</span><span class="o">Rarely refunded</span><span class="n">Refunded in full</span></div>
+        <div class="cmp-r"><span class="k">Returned stock</span><span class="o">Dead stock</span><span class="n">Resold in market</span></div>
       </div>
 
     </div>

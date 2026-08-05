@@ -472,7 +472,15 @@
     border-radius: 999px;
     padding: 14px; text-align: center;
     font-weight: 500; font-size: 15px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+  /* Lock the demo card's size across languages: reserve worst-case space and
+     keep single-line fields single-line so the card never changes height. */
+  .locp-body h4 { min-height: 2.3em; }
+  .locp-body .greet { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .locp-item > div:nth-child(2) { min-width: 0; flex: 1; }
+  .locp-item .nm, .locp-item .meta { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .locp-window { min-height: 64px; }
 
   /* ===== Stats board (shipping pattern) ===== */
   .m-stats-board {
@@ -1086,8 +1094,7 @@
   <!-- ===================== WHY IT MATTERS (stats board) ===================== -->
   <section id="problem" style="padding: 48px 20px 56px;">
     <div class="m-section-head">
-      <span class="kicker">Why it matters</span>
-      <h2>International returns, by the numbers.</h2>
+      <h2>Why it matters.</h2>
     </div>
     <div class="m-stats-board">
       <div class="m-stat">

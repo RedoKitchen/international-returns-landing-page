@@ -521,6 +521,54 @@
     font-weight: 500; font-size: 15px;
   }
 
+  /* ===== Stats board (shipping pattern) ===== */
+  .m-stats-board {
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 760px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .m-stat { padding: 36px 12px 32px; text-align: center; position: relative; }
+  .m-stat + .m-stat::before {
+    content: ""; position: absolute;
+    top: 22px; bottom: 22px; left: 0;
+    width: 1px; background: var(--line-2);
+  }
+  .m-stat:nth-child(2n+1)::before { display: none; }
+  .m-stat:nth-child(n+3) { border-top: 1px solid var(--line-2); }
+  .m-stat-val {
+    font-family: var(--font-serif), Georgia, serif;
+    font-size: clamp(52px, 16vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    color: var(--accent);
+    margin: 0 0 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .m-stat-val .ital { font-style: italic; }
+  .m-stat-lbl {
+    font-size: 11px; color: var(--ink-3); line-height: 1.4;
+    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+    padding: 0 6px;
+  }
+  .m-stats-note {
+    max-width: 560px; margin: 32px auto 0;
+    font-size: 10px; line-height: 1.5; color: var(--ink-3); opacity: 0.5;
+    text-align: center; padding: 0 16px; letter-spacing: 0.01em;
+  }
+  @media (min-width: 720px) {
+    .m-stats-board { grid-template-columns: repeat(4, 1fr); }
+    .m-stat:nth-child(n+3) { border-top: none; }
+    .m-stat + .m-stat::before { display: block; }
+    .m-stat:nth-child(2n+1)::before { display: block; }
+    .m-stat:first-child::before { display: none; }
+  }
+
   /* ===== Dark buyback band ===== */
   .m-cta {
     background:

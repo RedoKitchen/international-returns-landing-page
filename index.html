@@ -226,14 +226,9 @@
     max-width: 1280px; margin: 0 auto;
   }
   .pillarnav .inner::-webkit-scrollbar { display: none; }
-  .pillarnav a {
-    flex: none; font-size: 13px; font-weight: 600;
-    color: var(--ink-2); white-space: nowrap; text-decoration: none;
-    border: 1px solid var(--line); border-radius: 999px;
-    padding: 8px 14px; background: var(--bg);
-    transition: 0.15s;
-  }
-  .pillarnav a.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pillarnav .p-pill { flex: none; white-space: nowrap; }
+  .pillarnav .p-pill.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pillarnav .p-pill.on svg { color: #fff; }
 
   /* ===== Deep-dive shared ===== */
   .dd-section { padding: 56px 20px 64px; }
@@ -835,16 +830,6 @@
     </div>
   </section>
 
-  <!-- Pillar pills: what you get, at a glance -->
-  <section aria-label="What you get" style="padding: 4px 0 44px;">
-    <div class="pillar-pills">
-      <a class="p-pill reveal" href="#warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
-      <a class="p-pill reveal" href="#shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
-      <a class="p-pill reveal" href="#customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
-      <a class="p-pill reveal" href="#portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>One localized portal</a>
-    </div>
-  </section>
-
   <!-- ===================== BUYBACK ===================== -->
   <!-- [CONFIRM] buyback mechanics (eligible categories, grading, pricing, cash
        vs credit, markets) before paid traffic runs on it. Destruction ban:
@@ -855,13 +840,23 @@
     <a id="get-started" href="#book" class="btn btn-primary btn-lg">Get an offer</a>
   </section>
 
+  <!-- Pillar pills: what you get, at a glance -->
+  <section aria-label="What you get" style="padding: 44px 0 8px;">
+    <div class="pillar-pills">
+      <a class="p-pill reveal" href="#warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
+      <a class="p-pill reveal" href="#shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
+      <a class="p-pill reveal" href="#customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
+      <a class="p-pill reveal" href="#portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>One localized portal</a>
+    </div>
+  </section>
+
   <!-- ===================== STICKY PILLAR JUMP-NAV ===================== -->
   <div class="pillarnav" id="pillarnav">
     <div class="inner">
-      <a href="#warehouses" data-spy="warehouses">1 &middot; Return warehouses</a>
-      <a href="#shipping" data-spy="shipping">2 &middot; Ship anywhere</a>
-      <a href="#customs" data-spy="customs">3 &middot; Customs clearance</a>
-      <a href="#portal" data-spy="portal">4 &middot; Localized portal</a>
+      <a class="p-pill" href="#warehouses" data-spy="warehouses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 8.8V20h16V8.8"/><path d="M9 20v-6h6v6"/></svg>Local return hubs</a>
+      <a class="p-pill" href="#shipping" data-spy="shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h11V6H3z"/><path d="M14 9h4l3 3v1h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>Ship anywhere</a>
+      <a class="p-pill" href="#customs" data-spy="customs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>Customs handled</a>
+      <a class="p-pill" href="#portal" data-spy="portal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>One localized portal</a>
     </div>
   </div>
 

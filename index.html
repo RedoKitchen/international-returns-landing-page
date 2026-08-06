@@ -5,6 +5,13 @@
 <meta name="color-scheme" content="light only" />
 <meta name="theme-color" content="#ffffff" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Trailing-slash / reverse-proxy safe base. Runs before any relative asset is
+     fetched so images, fonts, CSS and JS resolve correctly whether this page is
+     served at /international-returns (no slash), /international-returns/, at the
+     Railway root, or behind any reverse proxy. This lives in the HTML itself (not
+     just server.js) because in production the static file is served without the
+     Express <base> injection, so the page must be able to fix its own base. -->
+<script>(function(){var p=location.pathname,k="/international-returns",i=p.indexOf(k);var want=i>=0?p.slice(0,i+k.length)+"/":(p.charAt(p.length-1)==="/"?p:"/");var b=document.querySelector("base");if(!b){b=document.createElement("base");document.head.insertBefore(b,document.head.firstChild);}if(b.getAttribute("href")!==want)b.setAttribute("href",want);})();</script>
 <title>International Returns that work | Redo</title>
 <meta name="description" content="International returns that actually work. In-country return warehouses, carrier rates in 200+ countries, expert customs clearance, and a localized return portal, inside the returns platform 4,000+ brands already run." />
 <link rel="icon" type="image/svg+xml" href="logos/redo-logo.svg" />

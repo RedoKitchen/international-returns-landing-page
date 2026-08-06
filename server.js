@@ -248,9 +248,20 @@ app.post("/api/trial-signup", express.json({ limit: "16kb" }), trialSignup);
 const fs = require("fs");
 const INDEX_PATH = path.join(__dirname, "index.html");
 let indexRaw = null;
+// The <base> makes relative URLs resolve with or without a trailing slash.
+// The server's guess is right whenever the proxy preserves the path prefix;
+// the inline script then reconciles it against the REAL browser URL, so the
+// page also survives a proxy that strips or remounts the prefix. It runs
+// before the stylesheet is parsed, so nothing is fetched against a bad base.
 function renderIndex(baseHref) {
   if (indexRaw === null) indexRaw = fs.readFileSync(INDEX_PATH, "utf8");
-  return indexRaw.replace(/<head>/i, `<head>\n<base href="${baseHref}">`);
+  const head =
+    `<head>\n<base href="${baseHref}">\n` +
+    `<script>(function(){var b=document.getElementsByTagName("base")[0];if(!b)return;` +
+    `var p=location.pathname,k=${JSON.stringify(BASE)},i=p.indexOf(k);` +
+    `var want=i>=0?p.slice(0,i+k.length)+"/":"/";` +
+    `if(b.getAttribute("href")!==want)b.setAttribute("href",want);})();</script>`;
+  return indexRaw.replace(/<head>/i, head);
 }
 function sendIndex(baseHref) {
   return (req, res) => {

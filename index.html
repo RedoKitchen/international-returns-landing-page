@@ -685,75 +685,6 @@
   .m-tf-terms { font-size: 12px; color: var(--muted); line-height: 1.5; margin: 14px 0 0; }
   .m-tf-terms a { color: var(--ink-3); text-decoration: underline; }
 
-  /* ===== HubSpot embed, restyled to match the page ===== */
-  .hs-form-frame { --hsf-gap: 14px; }
-  .hs-form-frame form { display: flex; flex-direction: column; gap: var(--hsf-gap); }
-  .hs-form-frame label,
-  .hs-form-frame .hsfc-FieldLabel {
-    font-size: 13px !important; font-weight: 500 !important;
-    color: var(--ink-2) !important;
-    font-family: var(--font-sans) !important;
-    margin-bottom: 6px !important;
-  }
-  .hs-form-frame input[type="text"],
-  .hs-form-frame input[type="email"],
-  .hs-form-frame input[type="tel"],
-  .hs-form-frame input[type="number"],
-  .hs-form-frame select,
-  .hs-form-frame .hsfc-TextInput,
-  .hs-form-frame .hsfc-DropdownInput,
-  .hs-form-frame .hsfc-PhoneInput {
-    height: 44px !important;
-    width: 100% !important;
-    border: 1px solid var(--line) !important;
-    border-radius: var(--r-sm) !important;
-    padding: 0 14px !important;
-    font-family: var(--font-sans) !important;
-    font-size: 15px !important;
-    color: var(--ink) !important;
-    background: var(--bg) !important;
-    box-shadow: none !important;
-    transition: border-color .15s ease, box-shadow .15s ease;
-  }
-  .hs-form-frame input:focus,
-  .hs-form-frame select:focus,
-  .hs-form-frame .hsfc-TextInput:focus {
-    outline: none !important;
-    border-color: var(--ink) !important;
-    box-shadow: 0 0 0 3px rgba(20,20,19,.06) !important;
-  }
-  .hs-form-frame input[type="submit"],
-  .hs-form-frame button[type="submit"],
-  .hs-form-frame .hsfc-Button {
-    width: 100% !important;
-    height: 52px !important;
-    background: var(--ink) !important;
-    color: #fff !important;
-    border: 0 !important;
-    border-radius: 999px !important;
-    font-family: var(--font-sans) !important;
-    font-weight: 500 !important;
-    font-size: 15px !important;
-    letter-spacing: -0.005em;
-    cursor: pointer;
-    margin-top: 6px !important;
-    transition: background-color .15s ease;
-  }
-  .hs-form-frame input[type="submit"]:hover,
-  .hs-form-frame button[type="submit"]:hover,
-  .hs-form-frame .hsfc-Button:hover { background: #000 !important; }
-  /* HubSpot's own legal/consent text matches our fine print */
-  .hs-form-frame .hsfc-RichText,
-  .hs-form-frame .legal-consent-container {
-    font-size: 12px !important; color: var(--muted) !important;
-    line-height: 1.5 !important; font-family: var(--font-sans) !important;
-  }
-  .hs-form-frame .hsfc-ErrorAlert,
-  .hs-form-frame .hs-error-msg {
-    color: #c0322b !important; font-size: 13px !important;
-    font-family: var(--font-sans) !important;
-  }
-
   /* ===== Footer (shipping dark) ===== */
   .m-footer {
     background: var(--bg-dark);
@@ -1248,12 +1179,44 @@
 
       <div class="m-tryfree-card">
         <h3>Get a demo</h3>
-        <!-- HubSpot native embed. Handles its own submission, validation, and the
-             form's Logic rules (SMB / Growth / Mid Market / AU-NZ calendar routing),
-             so no server env vars are needed. Styled below to match the page. -->
-        <div class="hs-form-frame" data-region="na1" data-form-id="3f74b8f5-9e2e-47a0-a38a-8190cc38e7a8" data-portal-id="22543403"></div>
-        <p class="m-tf-terms">By requesting a demo, you agree to our <a href="https://redo.com/terms-and-conditions" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://redo.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
-        <p class="m-tf-terms">Trying to return something you ordered from a store? Contact that store directly. Redo makes the software they use, so we can&rsquo;t process your return here.</p>
+        <form id="tf-form" data-hs-do-not-collect="true" novalidate>
+          <!-- Honeypot. Hidden from humans; bots that fill every input trip it.
+               NOTE: "website" is a REAL visible field on this form, so the honeypot is "fax". -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label>Fax<input type="text" name="fax" tabindex="-1" autocomplete="off" /></label>
+          </div>
+          <label class="m-tf-field">
+            <span>Name <em>*</em></span>
+            <input type="text" name="name" required autocomplete="name" placeholder="First Name" />
+          </label>
+          <label class="m-tf-field">
+            <span>Email <em>*</em></span>
+            <input type="email" name="email" required autocomplete="email" placeholder="Business Email Address" />
+          </label>
+          <label class="m-tf-field">
+            <span>Phone Number</span>
+            <input type="tel" name="phone" inputmode="tel" autocomplete="tel" />
+          </label>
+          <label class="m-tf-field">
+            <span>Company Domain Name <em>*</em></span>
+            <input type="text" name="website" inputmode="url" required autocomplete="url" placeholder="Website URL" />
+          </label>
+          <label class="m-tf-field">
+            <span>Number of online orders last year <em>*</em></span>
+            <select name="orders" required>
+              <option value="" disabled selected>Number of online orders last year</option>
+              <option value="1200">0 &ndash; 1,200</option>
+              <option value="24000">1,200 &ndash; 24,000</option>
+              <option value="120000">24,001 &ndash; 120,000</option>
+              <option value="120001">120,001+</option>
+            </select>
+          </label>
+          <div id="tf-ts-widget" class="cf-turnstile" style="margin-top:4px;"></div>
+          <p id="tf-error" class="m-tf-error" role="alert" hidden style="color:#c0322b;margin:0;font-size:14px;"></p>
+          <button type="submit" class="m-tf-submit">Get a demo</button>
+          <p class="m-tf-terms">By requesting a demo, you agree to our <a href="https://redo.com/terms-and-conditions" target="_blank" rel="noopener">Terms of Service</a> and <a href="https://redo.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+          <p class="m-tf-terms">Trying to return something you ordered from a store? Contact that store directly. Redo makes the software they use, so we can&rsquo;t process your return here.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -1312,7 +1275,6 @@
     if (lead) lead.textContent = v.lead;
   })();
 </script>
-<script src="https://js.hsforms.net/forms/embed/22543403.js" defer></script>
 <script src="config.js"></script>
 <script>
 (function(){
@@ -1421,6 +1383,118 @@
     compute(); addEventListener('scroll', compute, { passive: true }); addEventListener('resize', compute, { passive: true });
   })();
 
+  /* ---- demo form: proxied through our own server (server.js), which verifies a
+     Cloudflare Turnstile token + rate-limits before forwarding to HubSpot. The
+     HubSpot portal/form IDs live in server env vars — deliberately NOT here. ---- */
+  (function(){
+    var form = document.getElementById('tf-form');
+    if (!form) return;
+
+    var ENDPOINT = 'api/trial-signup';   // relative to the page URL
+    // The booking URL is intentionally NOT here — the server returns it only after
+    // a verified submission, so it never appears in page source for bots to scrape.
+    var loadedAt = Date.now();
+
+    var errEl = document.getElementById('tf-error');
+    var btn = form.querySelector('.m-tf-submit');
+    var tsToken = '';
+    var tsWidgetId = null;
+
+    function showError(msg){
+      if (errEl) { errEl.textContent = msg; errEl.hidden = false; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Get a demo'; }
+    }
+    function clearError(){ if (errEl) { errEl.hidden = true; errEl.textContent = ''; } }
+    function resetCaptcha(){
+      tsToken = '';
+      if (window.turnstile && tsWidgetId !== null) window.turnstile.reset(tsWidgetId);
+    }
+
+    // Turnstile explicit render — api.js is loaded async with ?onload=onTurnstileLoad.
+    window.onTurnstileLoad = function(){
+      var cfg = window.__TRIAL_CFG__ || {};
+      if (!cfg.turnstileSiteKey || !window.turnstile) return;
+      tsWidgetId = window.turnstile.render('#tf-ts-widget', {
+        sitekey: cfg.turnstileSiteKey,
+        callback: function(t){ tsToken = t; clearError(); },
+        'expired-callback': function(){ tsToken = ''; },
+        'error-callback': function(){ tsToken = ''; }
+      });
+    };
+
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      clearError();
+
+      var fd = new FormData(form);
+
+      // Cheap client-side pre-filters. The authoritative checks all run server-side.
+      if ((fd.get('fax') || '') !== '') return; // honeypot
+      var els = form.elements;
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.name === 'fax') continue;
+        if (el.willValidate && !el.checkValidity()) { el.reportValidity(); el.focus(); return; }
+      }
+      // Require the token only if Turnstile is configured (site key present).
+      var cfg = window.__TRIAL_CFG__ || {};
+      if (cfg.turnstileSiteKey && !tsToken) { showError('Please complete the "I am not a robot" check.'); return; }
+
+      if (btn) { btn.textContent = 'Submitting...'; btn.disabled = true; }
+
+      // Capture UTM + ad-click params so attribution lands on the contact.
+      var qs = new URLSearchParams(window.location.search);
+      var payload = {
+        name:           fd.get('name')      || '',
+        email:          fd.get('email')     || '',
+        phone:          fd.get('phone')     || '',
+        website:        fd.get('website')   || '',
+        orders:         fd.get('orders')    || '',
+        utm_source:     qs.get('utm_source')   || '',
+        utm_medium:     qs.get('utm_medium')   || '',
+        utm_campaign:   qs.get('utm_campaign') || '',
+        utm_content:    qs.get('utm_content')  || '',
+        utm_product:    qs.get('utm_product')  || '',
+        fbclid:         qs.get('fbclid')       || '',
+        li_fat_id:      qs.get('li_fat_id')    || '',
+        rdt_cid:        qs.get('rdt_cid')      || '',
+        fax:            fd.get('fax')       || '', // honeypot (server re-checks)
+        turnstileToken: tsToken,
+        elapsedMs:      Date.now() - loadedAt,
+        pageUri:        window.location.href,
+        pageName:       document.title
+      };
+
+      try {
+        var res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        var data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (res.ok && data.ok) {
+          if (window.dataLayer) window.dataLayer.push({ event: 'ir_demo_request' });
+          if (data.bookingUrl) {
+            if (btn) btn.textContent = 'Redirecting...';
+            window.location.href = data.bookingUrl;
+          } else if (btn) {
+            btn.textContent = 'Submitted — we’ll be in touch';
+          }
+          return;
+        }
+        resetCaptcha();
+        showError(res.status === 429
+          ? 'Too many attempts. Please wait a moment and try again.'
+          : 'Something went wrong. Please try again.');
+      } catch (err) {
+        console.error('Demo request error:', err);
+        resetCaptcha();
+        showError('Network error. Please try again.');
+      }
+    });
+  })();
+
   /* ---- FAQ accordion ---- */
   (function(){
     var acc = document.getElementById('acc'); if (!acc) return;
@@ -1440,5 +1514,6 @@
 
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
 </body>
 </html>

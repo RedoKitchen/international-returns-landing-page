@@ -22,8 +22,13 @@ const BASE = "/international-returns";
 // --- Config (all secrets/IDs come from the environment, never the client) ---
 const TURNSTILE_SITE_KEY = process.env.TURNSTILE_SITE_KEY || "";   // public, exposed via config.js
 const TURNSTILE_SECRET   = process.env.TURNSTILE_SECRET   || "";   // private, server-only
-const HS_PORTAL          = process.env.HS_PORTAL          || "";
-const HS_FORM            = process.env.HS_FORM            || "";
+// Default to the live IR form so the page works without Railway config; env
+// vars still override (e.g. to point a staging deploy at a different form).
+// These IDs are already public in HubSpot's own embed snippet, so keeping them
+// here costs nothing — the bot defenses that matter (Turnstile, honeypot, rate
+// limit, timing) all run server-side before anything reaches HubSpot.
+const HS_PORTAL          = process.env.HS_PORTAL          || "22543403";
+const HS_FORM            = process.env.HS_FORM            || "3f74b8f5-9e2e-47a0-a38a-8190cc38e7a8";
 // The booking calendar URL is returned to the browser ONLY after a submission
 // passes Turnstile + validation — it is never in the page source, so bots can't
 // scrape it. Set BOOKING_URL in Railway; rotating the meeting-link slug there

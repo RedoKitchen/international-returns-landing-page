@@ -10,12 +10,12 @@
 <link rel="icon" type="image/svg+xml" href="logos/redo-logo.svg" />
 <meta property="og:title" content="International Returns that work | Redo" />
 <meta property="og:description" content="In-country return warehouses, carrier rates in 200+ countries, expert customs clearance, and a localized return portal, inside the returns platform 4,000+ brands already run." />
-<meta property="og:image" content="logos/returns-portal.jpg" />
+<meta property="og:image" content="https://redo.com/international-returns/logos/returns-portal.jpg" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="International Returns that work | Redo" />
 <meta name="twitter:description" content="In-country return warehouses, carrier rates and clearance, inside the returns platform 4,000+ brands run." />
-<meta name="twitter:image" content="logos/returns-portal.jpg" />
+<meta name="twitter:image" content="https://redo.com/international-returns/logos/returns-portal.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -810,11 +810,9 @@
     </div>
     <h1 id="hero-h1" aria-label="International returns without the hassle">International returns<br /><span class="rot" id="rot" aria-hidden="true">
       <span class="rw hl on">without the hassle.</span>
-      <span class="rw hl">that clear customs.</span>
-      <span class="rw hl">that ship duty free.</span>
-      <span class="rw hl">with negotiated rates.</span>
-      <span class="rw hl">we buy from you.</span>
-      <span class="rw hl">without the hassle.</span>
+      <span class="rw hl">worldwide: $0.</span>
+      <span class="rw hl">software: $0.</span>
+      <span class="rw hl">we pay the bill.</span>
     </span></h1>
     <p class="lead" id="hero-lead">Return warehouses in your main markets, carrier rates and customs clearance everywhere else. Native inside the #1 returns app on Shopify.</p>
     <div class="m-hero-cta">
@@ -1283,9 +1281,9 @@
     var words = rot.querySelectorAll('.rw'); if (words.length < 2) return;
     function sizeTo(el){ rot.style.height = el.offsetHeight + 'px'; }
     if (reduce) {
-      words.forEach(function(w, n){ w.classList.toggle('on', n === words.length - 1); });
-      sizeTo(words[words.length - 1]);
-      addEventListener('resize', function(){ sizeTo(words[words.length - 1]); }, { passive: true });
+      words.forEach(function(w, n){ w.classList.toggle('on', n === 0); });
+      sizeTo(words[0]);
+      addEventListener('resize', function(){ sizeTo(words[0]); }, { passive: true });
       return;
     }
     var i = 0;
@@ -1293,13 +1291,16 @@
     addEventListener('resize', function(){ sizeTo(words[i]); }, { passive: true });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ sizeTo(words[i]); });
     function next(){
-      var cur = words[i], nxt = words[i + 1];
+      var cur = words[i], nxt = words[(i + 1) % words.length];
       cur.classList.remove('on'); cur.classList.add('out');
+      nxt.classList.remove('out');
+      void nxt.offsetWidth; // re-enter from below on wrap, like the first pass
       nxt.classList.add('on');
-      i++; sizeTo(nxt);
-      if (i < words.length - 1) setTimeout(next, 1450);
+      i = (i + 1) % words.length;
+      sizeTo(nxt);
+      setTimeout(next, 2000);
     }
-    setTimeout(next, 1200);
+    setTimeout(next, 2000);
   })();
 
   /* ---- localized portal: auto-flips languages on scroll-in, click to control ---- */

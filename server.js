@@ -1,9 +1,10 @@
 // Static server for the Redo International Returns free-trial landing page.
 //
-// The site is published at redo.com/international-returns via a
-// Cloudflare reverse proxy that PRESERVES the path prefix, so Railway receives
-// requests under /international-returns/*. We mount the static files
-// at that same subpath so the on-disk layout matches the public URL exactly.
+// The site is published at redo.com/international-returns via a reverse
+// proxy. Everything is mounted at BOTH the /international-returns prefix and
+// the bare root, and every URL in the page is relative, so the app works
+// whether the proxy preserves or strips the prefix, and when the Railway
+// domain is hit directly.
 //
 // It also proxies free-trial signups to HubSpot: the browser POSTs to
 // `${BASE}/api/trial-signup`, we verify a Cloudflare Turnstile token + apply
@@ -14,6 +15,7 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
+app.set("trust proxy", true);
 const PORT = process.env.PORT || 3000;
 const BASE = "/international-returns";
 
@@ -111,7 +113,7 @@ async function verifyTurnstile(token, ip) {
 
 // Block internals before the static handler runs.
 const HIDDEN_FILES = new Set(["server.js", "package.json", "package-lock.json"]);
-app.use(BASE, (req, res, next) => {
+app.use((req, res, next) => {
   const segments = req.path.split("/").filter(Boolean);
   if (segments.includes("node_modules") || HIDDEN_FILES.has(path.basename(req.path))) {
     return res.status(404).end();
@@ -120,17 +122,19 @@ app.use(BASE, (req, res, next) => {
 });
 
 // Expose ONLY the public Turnstile site key to the browser. No secret here.
-app.get(`${BASE}/config.js`, (req, res) => {
+function serveConfig(req, res) {
   res.type("application/javascript").set("Cache-Control", "no-store");
   res.send(
     "window.__TRIAL_CFG__ = " +
       JSON.stringify({ turnstileSiteKey: TURNSTILE_SITE_KEY }) +
       ";"
   );
-});
+}
+app.get(`${BASE}/config.js`, serveConfig);
+app.get("/config.js", serveConfig);
 
 // --- The proxied signup endpoint ---
-app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req, res) => {
+const trialSignup = async (req, res) => {
   const ip = clientIp(req);
   const b = req.body || {};
 
@@ -235,12 +239,12 @@ app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), async (req
 
   // Verified submission — hand back the rule-chosen calendar, or the fallback.
   return res.status(200).json({ ok: true, bookingUrl: redirectUri || BOOKING_URL });
-});
+};
+app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), trialSignup);
+app.post("/api/trial-signup", express.json({ limit: "16kb" }), trialSignup);
 
 app.use(BASE, express.static(__dirname, { extensions: ["html"] }));
-
-// Convenience: bare domain root -> the landing page.
-app.get("/", (req, res) => res.redirect(302, BASE + "/"));
+app.use("/", express.static(__dirname, { extensions: ["html"] }));
 
 // Health check for Railway.
 app.get("/healthz", (req, res) => res.type("text").send("ok"));

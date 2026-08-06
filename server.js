@@ -1,8 +1,8 @@
 // Static server for the Redo International Returns free-trial landing page.
 //
-// The site is published at redo.com/international-returns-free-trial via a
+// The site is published at redo.com/international-returns via a
 // Cloudflare reverse proxy that PRESERVES the path prefix, so Railway receives
-// requests under /international-returns-free-trial/*. We mount the static files
+// requests under /international-returns/*. We mount the static files
 // at that same subpath so the on-disk layout matches the public URL exactly.
 //
 // It also proxies free-trial signups to HubSpot: the browser POSTs to
@@ -15,7 +15,7 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BASE = "/international-returns-free-trial";
+const BASE = "/international-returns";
 
 // --- Config (all secrets/IDs come from the environment, never the client) ---
 const TURNSTILE_SITE_KEY = process.env.TURNSTILE_SITE_KEY || "";   // public, exposed via config.js

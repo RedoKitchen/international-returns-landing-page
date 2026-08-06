@@ -7,7 +7,7 @@ The Shipping free-trial landing page design ([Shipping-Free-Trial-Landing-Page](
 | File | Purpose |
 | --- | --- |
 | `index.html` | The whole page (V4 structure in the shipping design system): rotating hero, pillar cards, pain cards, EU hub map, carrier grid, customs mock, localized-portal demo, savings calculator, buyback band, demo form. |
-| `server.js` | Express server. Serves the site under `/international-returns-free-trial/` and proxies `api/trial-signup` to HubSpot behind the defense stack. |
+| `server.js` | Express server. Serves the site under `/international-returns/` and proxies `api/trial-signup` to HubSpot behind the defense stack. |
 
 ## The form (demo request, not account signup)
 
@@ -24,7 +24,7 @@ Fields mirror the real IR HubSpot form 1:1, same order and labels: Name, Email, 
 ## Deploy (mirrors the shipping page)
 
 1. **Railway**: new service, `npm start`. Env vars: `HS_PORTAL` + `HS_FORM` (the IR form's portal/GUID — kept out of this public repo on purpose; signups rejected until set), `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET` (degraded mode without), `BOOKING_URL`.
-2. **Cloudflare**: proxy `redo.com/international-returns-free-trial/*` to the service, preserving the path prefix.
+2. **Cloudflare**: proxy `redo.com/international-returns/*` to the service, preserving the path prefix.
 
 ## Local dev
 
@@ -32,4 +32,4 @@ Fields mirror the real IR HubSpot form 1:1, same order and labels: Name, Email, 
 npm install && npm start
 ```
 
-Open `http://localhost:3000/international-returns-free-trial/`. Without env vars, valid submissions 500 with `not_configured` (by design).
+Open `http://localhost:3000/international-returns/`. Without env vars, valid submissions 500 with `not_configured` (by design).

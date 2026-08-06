@@ -243,6 +243,26 @@ const trialSignup = async (req, res) => {
 app.post(`${BASE}/api/trial-signup`, express.json({ limit: "16kb" }), trialSignup);
 app.post("/api/trial-signup", express.json({ limit: "16kb" }), trialSignup);
 
+// --- HTML: inject a <base> so relative URLs resolve no matter how the proxy
+// --- rewrites the path (and even without a trailing slash on the URL).
+const fs = require("fs");
+const INDEX_PATH = path.join(__dirname, "index.html");
+let indexRaw = null;
+function renderIndex(baseHref) {
+  if (indexRaw === null) indexRaw = fs.readFileSync(INDEX_PATH, "utf8");
+  return indexRaw.replace(/<head>/i, `<head>\n<base href="${baseHref}">`);
+}
+function sendIndex(baseHref) {
+  return (req, res) => {
+    res.type("html").set("Cache-Control", "no-cache");
+    res.send(renderIndex(baseHref));
+  };
+}
+// Prefix mount: the proxy kept /international-returns on the way in.
+app.get([BASE, `${BASE}/`, `${BASE}/index.html`], sendIndex(`${BASE}/`));
+// Root mount: the proxy stripped the prefix, or Railway was hit directly.
+app.get(["/", "/index.html"], sendIndex("/"));
+
 app.use(BASE, express.static(__dirname, { extensions: ["html"] }));
 app.use("/", express.static(__dirname, { extensions: ["html"] }));
 
